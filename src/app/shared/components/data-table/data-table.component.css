@@ -1,0 +1,255 @@
+/* ═══════════════════════════════════════════════════
+   DataTable Component Styles
+   Premium Syncfusion Grid Wrapper
+   ═══════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:host {
+  display: block;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Wrapper ──────────────────────────────────────── */
+.dt-wrapper {
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 4px 32px rgba(15, 23, 42, 0.08), 0 1px 4px rgba(15,23,42,0.04);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+/* ── Header Bar ───────────────────────────────────── */
+.dt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.5rem 1.75rem 1.25rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dt-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dt-icon {
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, #0ea5e9, #4f46e5);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+  flex-shrink: 0;
+}
+
+.dt-icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  color: #ffffff;
+}
+
+.dt-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.dt-subtitle {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 500;
+  margin: 0.2rem 0 0;
+  letter-spacing: 0.03em;
+}
+
+/* ── Header Badges ────────────────────────────────── */
+.dt-header-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.dt-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.badge-filter {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.badge-export {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.badge-page {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+/* ── Syncfusion Grid Overrides ────────────────────── */
+::ng-deep .e-grid {
+  border: none !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+::ng-deep .e-grid .e-headercell {
+  background: #f8fafc !important;
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.07em !important;
+  color: #64748b !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+}
+
+::ng-deep .e-grid .e-headercelldiv {
+  padding: 0 0.5rem !important;
+}
+
+::ng-deep .e-grid .e-rowcell {
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  color: #334155 !important;
+  border-color: #f1f5f9 !important;
+  padding: 0.6rem 1rem !important;
+}
+
+::ng-deep .e-grid .e-row:hover .e-rowcell {
+  background: #f0f9ff !important;
+}
+
+::ng-deep .e-grid .e-altrow .e-rowcell {
+  background: #fafbfc !important;
+}
+
+/* Toolbar */
+::ng-deep .e-grid .e-toolbar {
+  background: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  padding: 0.5rem 1rem !important;
+}
+
+::ng-deep .e-grid .e-toolbar .e-btn {
+  border-radius: 10px !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  transition: all 0.2s !important;
+}
+
+::ng-deep .e-grid .e-toolbar .e-btn:hover {
+  background: #e0f2fe !important;
+  color: #0284c7 !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Toolbar Search */
+::ng-deep .e-grid .e-toolbar .e-search-wrapper .e-search {
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  transition: border-color 0.2s !important;
+}
+
+::ng-deep .e-grid .e-toolbar .e-search-wrapper .e-search:focus-within {
+  border-color: #0ea5e9 !important;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12) !important;
+}
+
+/* Pager */
+::ng-deep .e-grid .e-pager {
+  background: #f8fafc !important;
+  border-top: 1px solid #e2e8f0 !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+}
+
+::ng-deep .e-grid .e-pager .e-numericitem {
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+}
+
+::ng-deep .e-grid .e-pager .e-numericitem.e-active {
+  background: linear-gradient(135deg, #0ea5e9, #4f46e5) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+}
+
+/* Filter row */
+::ng-deep .e-grid .e-filterbar .e-filterbarcell input {
+  border-radius: 8px !important;
+  border: 1.5px solid #e2e8f0 !important;
+  font-size: 0.8rem !important;
+  transition: border-color 0.2s !important;
+}
+
+::ng-deep .e-grid .e-filterbar .e-filterbarcell input:focus {
+  border-color: #0ea5e9 !important;
+  outline: none !important;
+}
+
+/* Sort icons */
+::ng-deep .e-grid .e-ascending .e-icon-ascending::before,
+::ng-deep .e-grid .e-descending .e-icon-descending::before {
+  color: #0ea5e9 !important;
+}
+
+/* Checkbox */
+::ng-deep .e-grid .e-checkboxselect .e-frame,
+::ng-deep .e-grid .e-headerchkcelldiv .e-frame {
+  border-radius: 6px !important;
+}
+
+::ng-deep .e-grid .e-checkboxselect .e-frame.e-check,
+::ng-deep .e-grid .e-headerchkcelldiv .e-frame.e-check {
+  background: linear-gradient(135deg, #0ea5e9, #4f46e5) !important;
+  border-color: transparent !important;
+}
+
+/* Column menu */
+::ng-deep .e-grid .e-columnmenu {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+}
+
+/* Group drop area */
+::ng-deep .e-grid .e-groupdroparea {
+  background: linear-gradient(135deg, #f0f9ff, #eff6ff) !important;
+  border-bottom: 2px dashed #bae6fd !important;
+  color: #0369a1 !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  padding: 0.75rem !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Group caption */
+::ng-deep .e-grid .e-groupcaption {
+  background: #f0f9ff !important;
+  font-weight: 700 !important;
+  color: #0369a1 !important;
+}
+
+/* Sticky header */
+::ng-deep .e-grid .e-stickyheader .e-headercell {
+  background: #f8fafc !important;
+}

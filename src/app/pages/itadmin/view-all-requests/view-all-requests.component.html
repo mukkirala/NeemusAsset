@@ -1,0 +1,21 @@
+<div class="min-h-screen bg-slate-50 p-8 flex flex-col gap-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+  
+  <header>
+    <h1 class="text-3xl font-black text-slate-900 tracking-tight">View All Requests</h1>
+    <p class="text-sm text-slate-500 font-medium mt-1">Consolidated view of all asset-related requests across the organization</p>
+  </header>
+
+  <section class="space-y-4">
+    <div class="bg-white border border-slate-200 rounded-[32px] shadow-xl overflow-hidden">
+      <app-data-table
+        [data]="data"
+        [columns]="columns"
+        title="Organization Requests"
+        [pageSize]="10"
+        [height]="500"
+        [allowGrouping]="true">
+      </app-data-table>
+    </div>
+  </section>
+
+</div>

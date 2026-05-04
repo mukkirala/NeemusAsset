@@ -1,0 +1,111 @@
+<div class="h-screen w-screen flex items-center justify-center relative overflow-hidden bg-[var(--bg-page)]">
+
+  <!-- Card -->
+  <div class="relative z-20 w-full max-w-[450px] mx-4 p-8 sm:p-[50px_60px] rounded-[30px] sm:rounded-[40px] 
+              bg-[var(--bg-card)] backdrop-blur-[30px] border border-[var(--border-card)] 
+              text-[var(--text-main)] text-center shadow-[var(--shadow-card)] animate-[fadeIn_0.7s_ease-out]">
+
+    <h1 class="text-[var(--font-size-h1)] mb-8 font-[var(--font-weight-light)] tracking-tight">Login</h1>
+
+    <!-- User ID -->
+    <div class="text-left mb-6">
+      <label class="block text-[var(--font-size-small)] font-[var(--font-weight-bold)] text-[var(--text-muted)] mb-2 tracking-widest uppercase pl-1">
+        User ID
+      </label>
+
+      <div class="relative">
+        <mat-icon class="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-dim)] text-xl">
+          person
+        </mat-icon>
+
+        <input
+          type="text"
+          [(ngModel)]="userId"
+          placeholder="Enter User ID"
+          class="w-full bg-[var(--bg-input)] border border-[var(--border-input)] rounded-xl 
+                 pl-12 pr-4 py-3 text-[var(--font-size-base)] text-[var(--text-main)] outline-none
+                 focus:border-[var(--color-accent)] focus:bg-[var(--bg-input)] placeholder:text-[var(--text-dim)]"
+        />
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="text-left mb-6">
+      <div class="flex justify-between items-center mb-2">
+        <label class="text-[var(--font-size-small)] font-[var(--font-weight-bold)] text-[var(--text-muted)] tracking-widest uppercase pl-1">
+          Password
+        </label>
+
+        <button
+          (click)="togglePassword()"
+          class="text-[var(--font-size-small)] font-[var(--font-weight-bold)] text-[var(--color-accent)] uppercase tracking-wide hover:opacity-80">
+          {{ showPassword ? 'Hide' : 'Show' }}
+        </button>
+      </div>
+
+      <div class="relative">
+        <mat-icon class="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-dim)] text-xl">
+          lock
+        </mat-icon>
+
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="password"
+          placeholder="Enter Password"
+          class="w-full bg-[var(--bg-input)] border border-[var(--border-input)] rounded-xl 
+                 pl-12 pr-4 py-3 text-[var(--font-size-base)] text-[var(--text-main)] outline-none
+                 focus:border-[var(--color-accent)] focus:bg-[var(--bg-input)] placeholder:text-[var(--text-dim)]"
+        />
+      </div>
+    </div>
+
+    <!-- Forgot -->
+    <div class="text-left mb-8 pl-1">
+      <a href="javascript:void(0)" class="text-[var(--color-accent)] text-[var(--font-size-base)] hover:opacity-80">
+        Forgot password?
+      </a>
+    </div>
+
+    <!-- Roles -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10 text-left">
+      <label *ngFor="let role of roles" [for]="role" class="flex items-center gap-2 cursor-pointer">
+
+        <div class="relative w-4 h-4">
+          <input
+            type="radio"
+            [id]="role"
+            name="role"
+            [value]="role"
+            [(ngModel)]="selectedRole"
+            class="absolute opacity-0 w-0 h-0 peer"
+          />
+
+          <span class="absolute inset-0 border border-[var(--border-input)] rounded-full peer-checked:border-[var(--color-accent)]"></span>
+
+          <span class="hidden peer-checked:block absolute top-[3px] left-[3px] w-2 h-2 bg-[var(--color-accent)] rounded-full"></span>
+        </div>
+
+        <span class="text-[var(--font-size-small)] text-[var(--text-muted)] hover:text-[var(--text-main)]">
+          {{ role }}
+        </span>
+      </label>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex flex-col gap-4">
+
+      <app-button
+        label="Log In"
+        variant="primary"
+        (btnClick)="onLogin()">
+      </app-button>
+
+      <app-button
+        label="Download"
+        variant="dark"
+        (btnClick)="onDownload()">
+      </app-button>
+
+    </div>
+  </div>
+</div>

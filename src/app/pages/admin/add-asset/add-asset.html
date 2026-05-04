@@ -1,0 +1,283 @@
+<div class="min-h-screen bg-slate-50 p-4 sm:p-8 animate-in fade-in duration-700">
+  <!-- Page Header -->
+  <header class="max-w-5xl mx-auto mb-10">
+    <h1 class="text-3xl font-black text-slate-900 tracking-tight">Add New Asset</h1>
+    <p class="text-slate-500 mt-2 font-medium">Follow the steps below to register a new asset in the system.</p>
+  </header>
+
+  <div class="max-w-5xl mx-auto">
+    <!-- 🔷 PREMIUM GRADIENT STEPPER -->
+    <mat-stepper [linear]="true" #stepper class="bg-white rounded-[32px] shadow-2xl border border-slate-100 overflow-hidden">
+      
+      <!-- STEP 1: Basic Information -->
+      <mat-step [stepControl]="basicInfoForm">
+        <form [formGroup]="basicInfoForm" class="p-8 sm:p-12 space-y-8">
+          <ng-template matStepLabel>Basic Info</ng-template>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Main Asset Number *</label>
+              <input formControlName="mainAssetNumber" placeholder="e.g. AST-2024-001"
+                     class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Sub Number *</label>
+              <input formControlName="subNumber" placeholder="00"
+                     class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Custodian Department *</label>
+              <select formControlName="custodianDept" 
+                      class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium appearance-none">
+                <option value="">Select Department</option>
+                <option value="IT">IT Department</option>
+                <option value="HR">Human Resources</option>
+                <option value="FIN">Finance</option>
+                <option value="OPS">Operations</option>
+              </select>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Quantity</label>
+              <input type="number" formControlName="quantity" placeholder="1"
+                     class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
+            </div>
+
+            <div class="space-y-2 md:col-span-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Asset Description *</label>
+              <textarea formControlName="assetDescription" rows="3" placeholder="Detailed description of the asset..."
+                        class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium resize-none"></textarea>
+            </div>
+          </div>
+
+          <div class="flex justify-end pt-6">
+            <button matStepperNext class="px-8 py-4 bg-gradient-to-r from-sky-500 to-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-sky-200 transition-all hover:scale-105 active:scale-95">
+              Next Step
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- STEP 2: Acquisition & Value -->
+      <mat-step [stepControl]="acquisitionForm">
+        <form [formGroup]="acquisitionForm" class="p-8 sm:p-12 space-y-8">
+          <ng-template matStepLabel>Dates & Value</ng-template>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">First Acquisition Date *</label>
+              <input type="date" formControlName="acquisitionDate"
+                     class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium uppercase text-xs">
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Capitalization Date *</label>
+              <input type="date" formControlName="capitalizationDate"
+                     class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium uppercase text-xs">
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Unit *</label>
+              <input formControlName="unit" placeholder="e.g. PCS, NOS"
+                     class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Custodian ID *</label>
+              <input formControlName="custodianId" placeholder="1500454"
+                     class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
+            </div>
+          </div>
+
+          <div class="flex justify-between pt-6">
+            <button matStepperPrevious class="px-8 py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold transition-all hover:bg-slate-200">
+              Back
+            </button>
+            <button matStepperNext class="px-8 py-4 bg-gradient-to-r from-sky-500 to-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-sky-200 transition-all hover:scale-105 active:scale-95">
+              Next Step
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- STEP 3: Location & Classification -->
+      <mat-step [stepControl]="locationForm">
+        <form [formGroup]="locationForm" class="p-8 sm:p-12 space-y-8">
+          <ng-template matStepLabel>Classification</ng-template>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Location *</label>
+              <input formControlName="location" placeholder="e.g. HQ-Building-A"
+                     class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Asset Class *</label>
+              <select formControlName="assetClass" 
+                      class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium appearance-none">
+                <option value="">Select Class</option>
+                <option value="Furniture">Furniture</option>
+                <option value="IT-Equip">IT Equipment</option>
+                <option value="Machinery">Machinery</option>
+                <option value="Vehicle">Vehicles</option>
+              </select>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Status Code *</label>
+              <select formControlName="statusCode" 
+                      class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium appearance-none">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Scrapped">Scrapped</option>
+                <option value="Sold">Sold</option>
+              </select>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">Component</label>
+              <input formControlName="component" placeholder="Main / Part"
+                     class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
+            </div>
+          </div>
+
+          <div class="flex justify-between pt-6">
+            <button matStepperPrevious class="px-8 py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold transition-all hover:bg-slate-200">
+              Back
+            </button>
+            <button matStepperNext class="px-8 py-4 bg-gradient-to-r from-sky-500 to-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-sky-200 transition-all hover:scale-105 active:scale-95">
+              Next Step
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- STEP 4: Review & Finalize -->
+      <mat-step>
+        <div class="p-8 sm:p-12 space-y-8">
+          <ng-template matStepLabel>Review</ng-template>
+
+          <!-- Header Banner -->
+          <div class="flex items-center gap-5 p-6 bg-gradient-to-r from-sky-500 to-indigo-600 rounded-3xl shadow-lg shadow-sky-200">
+            <div class="w-14 h-14 bg-white/20 backdrop-blur text-white rounded-2xl flex items-center justify-center shadow">
+              <mat-icon class="text-white">fact_check</mat-icon>
+            </div>
+            <div>
+              <h3 class="text-xl font-black text-white">Review Asset Details</h3>
+              <p class="text-sky-100 text-sm font-medium">Please verify all information below before saving the asset.</p>
+            </div>
+          </div>
+
+          <!-- Section 1: Basic Information -->
+          <div class="bg-white border border-slate-100 rounded-[28px] p-6 shadow-sm">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-50">
+              <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+                <mat-icon>info</mat-icon>
+              </div>
+              <span class="text-xs font-black text-slate-900 uppercase tracking-widest">Basic Information</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Main Asset Number</p>
+                <p class="text-sm font-bold text-slate-900">{{ basicInfoForm.value.mainAssetNumber || '—' }}</p>
+              </div>
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Sub Number</p>
+                <p class="text-sm font-bold text-slate-900">{{ basicInfoForm.value.subNumber || '—' }}</p>
+              </div>
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Custodian Department</p>
+                <p class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full inline-block">{{ basicInfoForm.value.custodianDept || '—' }}</p>
+              </div>
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Quantity</p>
+                <p class="text-sm font-bold text-slate-900">{{ basicInfoForm.value.quantity ?? '—' }}</p>
+              </div>
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4 sm:col-span-2">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Asset Description</p>
+                <p class="text-xs font-medium text-slate-600 leading-relaxed">{{ basicInfoForm.value.assetDescription || '—' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Dates & Value -->
+          <div class="bg-white border border-slate-100 rounded-[28px] p-6 shadow-sm">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-50">
+              <div class="w-10 h-10 bg-violet-50 text-violet-600 rounded-xl flex items-center justify-center">
+                <mat-icon>calendar_today</mat-icon>
+              </div>
+              <span class="text-xs font-black text-slate-900 uppercase tracking-widest">Dates &amp; Value</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">First Acquisition Date</p>
+                <p class="text-sm font-bold text-slate-900">{{ acquisitionForm.value.acquisitionDate || '—' }}</p>
+              </div>
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Capitalization Date</p>
+                <p class="text-sm font-bold text-slate-900">{{ acquisitionForm.value.capitalizationDate || '—' }}</p>
+              </div>
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Unit</p>
+                <p class="text-sm font-bold text-slate-900">{{ acquisitionForm.value.unit || '—' }}</p>
+              </div>
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Custodian ID</p>
+                <p class="text-sm font-bold font-mono text-slate-900">{{ acquisitionForm.value.custodianId || '—' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Classification -->
+          <div class="bg-white border border-slate-100 rounded-[28px] p-6 shadow-sm">
+            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-50">
+              <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
+                <mat-icon>category</mat-icon>
+              </div>
+              <span class="text-xs font-black text-slate-900 uppercase tracking-widest">Classification</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Location</p>
+                <p class="text-sm font-bold text-slate-900">{{ locationForm.value.location || '—' }}</p>
+              </div>
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Asset Class</p>
+                <p class="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full inline-block">{{ locationForm.value.assetClass || '—' }}</p>
+              </div>
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Status Code</p>
+                <p class="text-sm font-bold px-3 py-1 rounded-full inline-block"
+                   [ngClass]="{
+                     'bg-emerald-50 text-emerald-600': locationForm.value.statusCode === 'Active',
+                     'bg-amber-50 text-amber-600': locationForm.value.statusCode === 'Inactive',
+                     'bg-rose-50 text-rose-600': locationForm.value.statusCode !== 'Active' && locationForm.value.statusCode !== 'Inactive'
+                   }">
+                  {{ locationForm.value.statusCode || '—' }}
+                </p>
+              </div>
+              <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Component</p>
+                <p class="text-sm font-bold text-slate-900">{{ locationForm.value.component || '—' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex justify-between pt-4">
+            <button matStepperPrevious class="px-8 py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold transition-all hover:bg-slate-200 active:scale-95">
+              Back
+            </button>
+            <button (click)="submit()" class="px-12 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-2xl font-bold shadow-lg shadow-emerald-200 transition-all hover:scale-105 active:scale-95 flex items-center gap-3">
+              <mat-icon>save</mat-icon>
+              Save Asset
+            </button>
+          </div>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </div>
+</div>

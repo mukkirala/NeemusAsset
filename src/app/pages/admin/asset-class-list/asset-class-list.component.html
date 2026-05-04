@@ -1,0 +1,47 @@
+<div class="p-6 bg-slate-50 min-h-screen">
+  <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+    <!-- Custom Header -->
+    <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+      <div>
+        <h2 class="text-2xl font-bold">Asset Classes List</h2>
+        <p class="text-blue-100 text-sm opacity-80">Manage asset categories and department assignments</p>
+      </div>
+      <div class="flex gap-2">
+         <mat-icon class="opacity-40 scale-150">category</mat-icon>
+      </div>
+    </div>
+
+    <div class="p-4">
+      <ejs-grid 
+        [dataSource]="data" 
+        [allowPaging]="true" 
+        [pageSettings]="pageSettings" 
+        [toolbar]="toolbar"
+        [allowSorting]="true"
+        [allowFiltering]="true"
+        gridLines="Horizontal"
+        class="modern-grid"
+      >
+        <e-columns>
+          <!-- Actions Column -->
+          <e-column headerText="Actions" width="120" textAlign="Center">
+            <ng-template #template let-data>
+              <div class="flex items-center justify-center gap-2">
+                <button mat-icon-button color="primary" (click)="editAssetClass(data)" matTooltip="Edit Class">
+                  <mat-icon class="text-blue-600">edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteAssetClass(data)" matTooltip="Delete Class">
+                  <mat-icon class="text-rose-500">delete</mat-icon>
+                </button>
+              </div>
+            </ng-template>
+          </e-column>
+
+          <e-column field="assetClassCode" headerText="Asset Class Code" width="150" textAlign="Left"></e-column>
+          <e-column field="assetClassName" headerText="Asset Class Name" width="200"></e-column>
+          <e-column field="deptName" headerText="Department Name" width="200"></e-column>
+        </e-columns>
+      </ejs-grid>
+    </div>
+  </div>
+</div>

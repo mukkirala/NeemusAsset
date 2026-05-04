@@ -1,0 +1,30 @@
+<div class="min-h-screen bg-slate-50 p-8 flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-3 duration-500">
+  <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-3xl font-black text-slate-900 tracking-tight">Print QR Codes</h1>
+      <p class="text-sm text-slate-500 font-medium mt-1">Select assets to print QR codes</p>
+    </div>
+    <div class="flex items-center gap-4">
+      <button (click)="generateQRCodes()" 
+         class="inline-flex items-center gap-2.5 px-6 py-3 bg-gradient-to-r from-sky-500 to-indigo-600 text-white rounded-2xl font-bold text-sm shadow-lg shadow-sky-200 hover:scale-105 transition-transform active:scale-95">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.875 12.375h.375v.375h-.375v-.375zM18.75 12.375h.375v.375h-.375v-.375zM16.875 14.25h.375v.375h-.375v-.375zM15 15.75h.375v.375H15v-.375zM16.875 15.75h.375v.375h-.375v-.375zM18.75 15.75h.375v.375h-.375v-.375zM15 17.625h.375v.375H15v-.375zM16.875 17.625h.375v.375h-.375v-.375zM18.75 17.625h.375v.375h-.375v-.375z" />
+        </svg>
+        Generate QR Codes
+      </button>
+    </div>
+  </header>
+
+  <div class="bg-white border border-slate-200 rounded-[32px] shadow-xl overflow-hidden">
+    <app-data-table
+      [data]="data"
+      [columns]="columns"
+      title="Print Qr codes for selected assets"
+      [pageSize]="10"
+      [allowSelection]="true"
+      [allowGrouping]="true"
+      [height]="460"
+    ></app-data-table>
+  </div>
+</div>

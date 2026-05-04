@@ -1,0 +1,69 @@
+<div class="min-h-screen bg-slate-50 p-8 flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+  
+  <!-- ── Page Header ─────────────────────────────────── -->
+  <header>
+    <h1 class="text-3xl font-black text-slate-900 tracking-tight">Asset Status Change</h1>
+    <p class="text-sm text-slate-500 font-medium mt-1">Update the operational status of company assets</p>
+  </header>
+
+  <!-- ── Status Change Card ───────────────────────────── -->
+  <div class="max-w-4xl">
+    <app-common-card 
+      title="Asset Status Change" 
+      subtitle="Update the operational status of company assets" 
+      buttonLabel="Change Status" 
+      icon="sync" 
+      (onAction)="onChangeStatus()">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Select Asset -->
+        <div class="flex flex-col gap-2">
+          <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">Select Asset</label>
+          <div class="relative group">
+            <select [(ngModel)]="selectedAssetId" 
+                    class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-5 py-4 font-bold text-slate-700 appearance-none focus:border-sky-500 focus:bg-white outline-none transition-all cursor-pointer group-hover:border-slate-200">
+              <option value="" disabled selected>Choose an asset...</option>
+              <option *ngFor="let asset of assets" [value]="asset.id">{{ asset.mainAssetNumber }} - {{ asset.assetDescription }}</option>
+            </select>
+            <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset Status -->
+        <div class="flex flex-col gap-2">
+          <label class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">Asset Status</label>
+          <div class="relative group">
+            <select [(ngModel)]="selectedStatus"
+                    class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-5 py-4 font-bold text-slate-700 appearance-none focus:border-sky-500 focus:bg-white outline-none transition-all cursor-pointer group-hover:border-slate-200">
+              <option value="" disabled selected>Select new status...</option>
+              <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+            </select>
+            <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-common-card>
+  </div>
+
+  <!-- ── Table Section (Conditional) ──────────────────── -->
+  <div *ngIf="showTable" 
+       class="bg-white border border-slate-200 rounded-[32px] shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-500">
+    <app-data-table
+      [data]="tableData"
+      [columns]="columns"
+      title="Updated Asset Status"
+      [pageSize]="5"
+      [allowSelection]="false"
+      [height]="200"
+    ></app-data-table>
+  </div>
+
+</div>

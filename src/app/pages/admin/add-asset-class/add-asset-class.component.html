@@ -1,0 +1,50 @@
+<div class="container-center">
+  <div class="card-wrapper">
+    <app-common-card 
+      title="Add Asset Class" 
+      subtitle="Define new asset categories and department links" 
+      buttonLabel="Save Asset Class" 
+      icon="category"
+      (onAction)="saveAssetClass()">
+      
+      <div class="flex flex-col gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Asset Class Code -->
+          <div class="flex flex-col gap-2">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Class Code</span>
+            <mat-form-field appearance="outline" class="modern-field">
+              <mat-label>Asset Class Code</mat-label>
+              <input matInput [(ngModel)]="assetClass.code" placeholder="e.g. LAP-01" required>
+              <mat-icon matPrefix class="text-indigo-500 mr-2">qr_code</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <!-- Department -->
+          <div class="flex flex-col gap-2">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Department</span>
+            <mat-form-field appearance="outline" class="modern-field">
+              <mat-label>Select Department</mat-label>
+              <mat-select [(ngModel)]="assetClass.dept">
+                <mat-option *ngFor="let dept of departments" [value]="dept.value">
+                  {{dept.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix class="text-indigo-500 mr-2">business</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Asset Class Name -->
+        <div class="flex flex-col gap-2">
+          <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Class Description</span>
+          <mat-form-field appearance="outline" class="modern-field">
+            <mat-label>Asset Class Name</mat-label>
+            <input matInput [(ngModel)]="assetClass.name" placeholder="e.g. Laptops" required>
+            <mat-icon matPrefix class="text-indigo-500 mr-2">description</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </app-common-card>
+  </div>
+</div>

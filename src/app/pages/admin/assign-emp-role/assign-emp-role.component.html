@@ -1,0 +1,52 @@
+<div class="container-center">
+  <div class="card-wrapper">
+    <app-common-card 
+      title="Assign Employee Role" 
+    
+      buttonLabel="Save " 
+    
+      (onAction)="saveAssignment()">
+      
+      <div class="flex flex-col gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Select Role -->
+          <div class="flex flex-col gap-3">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-[0.2em] ml-1">System Permissions</span>
+            <mat-form-field appearance="outline" class="modern-field">
+              <mat-label>Assign Role</mat-label>
+              <mat-select [(ngModel)]="selectedRole">
+                <mat-option *ngFor="let role of roles" [value]="role.value">
+                  <div class="flex items-center gap-3">
+                    <mat-icon class="text-indigo-400">shield</mat-icon>
+                    <span>{{role.viewValue}}</span>
+                  </div>
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix class="text-indigo-500 mr-2">admin_panel_settings</mat-icon>
+              <mat-hint>Choose user access level</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <!-- Select Custodian -->
+          <div class="flex flex-col gap-3">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-[0.2em] ml-1">Asset Ownership</span>
+            <mat-form-field appearance="outline" class="modern-field">
+              <mat-label>Assign Custodian</mat-label>
+              <mat-select [(ngModel)]="selectedCustodian">
+                <mat-option *ngFor="let emp of employees" [value]="emp.id">
+                  <div class="flex items-center gap-3">
+                    <mat-icon class="text-indigo-400">person_pin</mat-icon>
+                    <span>{{emp.name}} ({{emp.id}})</span>
+                  </div>
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix class="text-indigo-500 mr-2">person</mat-icon>
+              <mat-hint>Designate responsible employee</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+    </app-common-card>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="container-center">
+  <div class="card-wrapper">
+    <app-common-card 
+      title="Add New Employee" 
+      subtitle="Register a non-NRL user in the system" 
+      buttonLabel="Save Employee" 
+      icon="person_add"
+      (onAction)="saveEmployee()">
+      
+      <div class="flex flex-col gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- User ID -->
+          <div class="flex flex-col gap-2">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Identification</span>
+            <mat-form-field appearance="outline" class="modern-field">
+              <mat-label>User ID</mat-label>
+              <input matInput [(ngModel)]="employee.userId" placeholder="e.g. EMP123" required>
+              <mat-icon matPrefix class="text-indigo-500 mr-2">badge</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <!-- Email ID -->
+          <div class="flex flex-col gap-2">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Communication</span>
+            <mat-form-field appearance="outline" class="modern-field">
+              <mat-label>Email ID</mat-label>
+              <input matInput [(ngModel)]="employee.emailId" placeholder="e.g. user@company.com" type="email" required>
+              <mat-icon matPrefix class="text-indigo-500 mr-2">mail</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Username -->
+        <div class="flex flex-col gap-2">
+          <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Full Name</span>
+          <mat-form-field appearance="outline" class="modern-field">
+            <mat-label>Username</mat-label>
+            <input matInput [(ngModel)]="employee.username" placeholder="e.g. John Doe" required>
+            <mat-icon matPrefix class="text-indigo-500 mr-2">person</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </app-common-card>
+  </div>
+</div>

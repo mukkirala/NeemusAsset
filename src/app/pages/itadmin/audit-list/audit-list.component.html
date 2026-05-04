@@ -1,0 +1,51 @@
+<div class="min-h-screen bg-slate-50 p-8 flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+  <header>
+    <h1 class="text-3xl font-black text-slate-900 tracking-tight">Audits List</h1>
+    <p class="text-sm text-slate-500 font-medium mt-1">View and manage all system audits</p>
+  </header>
+
+  <app-common-card 
+    title="Audit Directory" 
+    subtitle="Filter, view, and export audit records"
+    icon="list_alt">
+    
+    <div class="flex flex-col md:flex-row justify-between items-end gap-4 mb-6 mt-4">
+      <div class="flex flex-col gap-2 w-full md:w-1/3">
+        <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Quick Filters</label>
+        <select [(ngModel)]="filterType" (change)="onFilterChange()" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900">
+          <option value="All">All Audits</option>
+          <option value="Current">Current Audits</option>
+          <option value="Pending">Pending Audits</option>
+          <option value="Completed">Completed Audits</option>
+          <option value="Approved">Approved Audits</option>
+          <option value="LocationWise">Location Wise</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+      <ejs-grid 
+        #grid 
+        [dataSource]="auditData" 
+        [allowPaging]="true" 
+        [allowGrouping]="true" 
+        [allowFiltering]="true"
+        [allowSorting]="true"
+        [toolbar]="toolbarOptions"
+        [allowExcelExport]="true"
+        [allowPdfExport]="true"
+        (toolbarClick)="toolbarClick($event)"
+        [pageSettings]="{ pageSize: 10 }">
+        <e-columns>
+          <e-column field="auditName" headerText="Audit Name" width="150"></e-column>
+          <e-column field="auditDescription" headerText="Audit Description" width="200"></e-column>
+          <e-column field="createdBy" headerText="CreatedBy" width="120"></e-column>
+          <e-column field="locationCode" headerText="Location Code" width="130"></e-column>
+          <e-column field="location" headerText="Location" width="180"></e-column>
+          <e-column field="auditDate" headerText="Audit Date" width="130"></e-column>
+          <e-column field="auditStatus" headerText="Audit Status" width="120"></e-column>
+        </e-columns>
+      </ejs-grid>
+    </div>
+  </app-common-card>
+</div>

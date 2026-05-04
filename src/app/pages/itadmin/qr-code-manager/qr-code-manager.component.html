@@ -1,0 +1,70 @@
+<div class="min-h-screen bg-slate-50 p-8 flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+  <header>
+    <h1 class="text-3xl font-black text-slate-900 tracking-tight">QR Code Generation</h1>
+    <p class="text-sm text-slate-500 font-medium mt-1">Generate and print asset QR code stickers based on specific criteria</p>
+  </header>
+
+  <app-common-card 
+    title="QR Code Printing Panel" 
+    subtitle="Select printing mode and view applicable assets"
+    icon="qr_code">
+    
+    <div class="flex flex-col md:flex-row justify-between items-end gap-4 mb-6 mt-4">
+      <div class="flex flex-col gap-2 w-full md:w-1/3">
+        <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Printing Mode</label>
+        <select [(ngModel)]="filterType" (change)="onFilterChange()" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900">
+          <option value="Double Sticker">QRCodes for Double Sticker</option>
+          <option value="Single Sticker">QRCodes for Single Sticker</option>
+          <option value="Single Asset">QRCode with Single Asset</option>
+          <option value="Asset Type">QRCode by Asset Type</option>
+          <option value="Create Date">QRCode by Create Date</option>
+        </select>
+      </div>
+      <div class="mb-1 flex">
+        <app-button label="Print Selected QR Codes" variant="primary" (btnClick)="onPrint()"></app-button>
+      </div>
+    </div>
+
+    <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+      <ejs-grid 
+        #grid 
+        [dataSource]="assetData" 
+        [allowPaging]="true" 
+        [allowGrouping]="true" 
+        [allowFiltering]="true"
+        [allowSorting]="true"
+        [allowResizing]="true"
+        [toolbar]="toolbarOptions"
+        [allowExcelExport]="true"
+        [allowPdfExport]="true"
+        (toolbarClick)="toolbarClick($event)"
+        [pageSettings]="{ pageSize: 10 }">
+        <e-columns>
+          <e-column type="checkbox" width="50"></e-column>
+          <e-column field="mainAssetNo" headerText="Main Asset No" width="150"></e-column>
+          <e-column field="subNo" headerText="Sub No" width="100"></e-column>
+          <e-column field="assetClass" headerText="Asset Class" width="120"></e-column>
+          <e-column field="assetDesc" headerText="Asset Desc" width="200"></e-column>
+          <e-column field="addDesc" headerText="Add Desc" width="150"></e-column>
+          <e-column field="custId" headerText="Cust ID" width="120"></e-column>
+          <e-column field="custName" headerText="Cust Name" width="150"></e-column>
+          <e-column field="custDept" headerText="Cust Dept" width="130"></e-column>
+          <e-column field="location" headerText="Location" width="150"></e-column>
+          <e-column field="locDesc" headerText="Loc Desc" width="150"></e-column>
+          <e-column field="status" headerText="Status" width="180"></e-column>
+          <e-column field="statusDesc" headerText="Status Desc" width="150"></e-column>
+          <e-column field="quantity" headerText="Quantity" width="100"></e-column>
+          <e-column field="unit" headerText="Unit" width="100"></e-column>
+          <e-column field="assetCapDate" headerText="Asset Cap Date" width="150"></e-column>
+          <e-column field="componentDesc" headerText="Component Desc" width="150"></e-column>
+          <e-column field="deactivation" headerText="Deactivation" width="130"></e-column>
+          <e-column field="inventoryDate" headerText="Inventory Date" width="150"></e-column>
+          <e-column field="inventoryNote" headerText="Inventory Note" width="150"></e-column>
+          <e-column field="qrcode" headerText="QR Code" width="120"></e-column>
+          <e-column field="qrimage" headerText="QR Image" width="120"></e-column>
+          <e-column field="importedDate" headerText="Imported Date" width="150"></e-column>
+        </e-columns>
+      </ejs-grid>
+    </div>
+  </app-common-card>
+</div>

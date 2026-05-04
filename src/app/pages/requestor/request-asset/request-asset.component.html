@@ -1,0 +1,71 @@
+<div class="min-h-screen bg-slate-50 p-8 flex flex-col items-center justify-center animate-in fade-in slide-in-from-bottom-3 duration-500">
+  
+  <div class="w-full max-w-2xl">
+    <app-common-card 
+      [title]="'Request New Asset'" 
+      [subtitle]="'Fill in the details below to request an asset allocation'"
+      [icon]="'add_shopping_cart'"
+      [buttonLabel]="'Send Request'"
+      [disabled]="requestForm.invalid"
+      (onAction)="onSubmit()">
+      
+      <!-- Form Content -->
+      <form [formGroup]="requestForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Asset Class -->
+          <div class="flex flex-col gap-2">
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Select Asset Class</label>
+            <div class="relative">
+              <select formControlName="assetClass" 
+                      class="w-full h-12 px-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all appearance-none cursor-pointer">
+                <option value="" disabled selected>Choose a class</option>
+                <option *ngFor="let class of assetClasses" [value]="class">{{ class }}</option>
+              </select>
+              <mat-icon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</mat-icon>
+            </div>
+          </div>
+
+          <!-- Asset -->
+          <div class="flex flex-col gap-2">
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Select Asset</label>
+            <div class="relative">
+              <select formControlName="asset" 
+                      class="w-full h-12 px-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all appearance-none cursor-pointer">
+                <option value="" disabled selected>Choose an asset</option>
+                <option *ngFor="let a of assets" [value]="a">{{ a }}</option>
+              </select>
+              <mat-icon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</mat-icon>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Location -->
+          <div class="flex flex-col gap-2">
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Location</label>
+            <input type="text" formControlName="location" placeholder="e.g. Head Office, Floor 3"
+                   class="w-full h-12 px-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all">
+          </div>
+
+          <!-- Quantity -->
+          <div class="flex flex-col gap-2">
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Quantity</label>
+            <input type="number" formControlName="quantity" min="1"
+                   class="w-full h-12 px-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all">
+          </div>
+
+        </div>
+
+        <!-- Hidden submit to allow Enter key to work -->
+        <button type="submit" class="hidden"></button>
+
+      </form>
+
+    </app-common-card>
+  </div>
+
+</div>

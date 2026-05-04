@@ -1,0 +1,73 @@
+<div class="min-h-screen bg-slate-50 p-8 flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+  <header>
+    <h1 class="text-3xl font-black text-slate-900 tracking-tight">Audit Completion</h1>
+    <p class="text-sm text-slate-500 font-medium mt-1">Mark audits as complete and view completion history</p>
+  </header>
+
+  <app-common-card 
+    title="Complete Audit Form" 
+    subtitle="Select an audit to mark it as complete"
+    icon="check_circle">
+    
+    <div class="flex flex-col gap-4 max-w-lg mb-8">
+      <!-- Success Message -->
+      <div *ngIf="showSuccess" class="text-rose-500 font-semibold mb-2">
+        Data Updated Successfully
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Select Audit</label>
+        <div class="flex gap-2">
+          <select [(ngModel)]="selectedAudit" class="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900">
+            <option value="">Select Audit</option>
+            <option value="EIL Audit">EIL Audit</option>
+            <option value="Admin audit">Admin audit</option>
+            <option value="August'20">August'20</option>
+          </select>
+          <button class="p-3 bg-sky-500 text-white rounded-2xl shadow-lg shadow-sky-200 hover:bg-sky-600 transition-all flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Select Date</label>
+        <input type="date" [(ngModel)]="selectedDate" class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900" />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Remarks</label>
+        <textarea [(ngModel)]="remarks" rows="3" class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900 resize-none"></textarea>
+      </div>
+      
+      <div class="mt-4">
+        <button (click)="onMarkComplete()" class="px-8 py-3 bg-slate-900 text-white rounded-2xl font-black shadow-xl shadow-slate-200 hover:scale-105 transition-all active:scale-95 text-sm uppercase tracking-widest">
+          Mark Audit Complete
+        </button>
+      </div>
+    </div>
+  </app-common-card>
+
+  <app-common-card 
+    title="Completed Audits List" 
+    subtitle="History of all completed audits"
+    icon="history">
+    <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm mt-4">
+      <ejs-grid [dataSource]="auditData" [allowPaging]="true" [allowGrouping]="true" [pageSettings]="{ pageSize: 10 }">
+        <e-columns>
+          <e-column field="auditName" headerText="Audit Name" width="150"></e-column>
+          <e-column field="auditDescription" headerText="Audit Description" width="250"></e-column>
+          <e-column field="auditBy" headerText="AuditBy" width="120"></e-column>
+          <e-column field="locationCode" headerText="Location Code" width="130"></e-column>
+          <e-column field="location" headerText="Location" width="200"></e-column>
+          <e-column field="auditCreationDate" headerText="Audit CreationDate" width="160"></e-column>
+          <e-column field="completionDate" headerText="Completion Date" width="150"></e-column>
+          <e-column field="adminRemarks" headerText="Admin Remarks" width="150"></e-column>
+          <e-column field="auditStatus" headerText="Audit Status" width="120"></e-column>
+        </e-columns>
+      </ejs-grid>
+    </div>
+  </app-common-card>
+</div>

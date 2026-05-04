@@ -1,0 +1,51 @@
+<div class="p-6 bg-slate-50 min-h-screen">
+  <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+    <!-- Custom Header -->
+    <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-gradient-to-r from-violet-600 to-purple-600 text-white">
+      <div>
+        <h2 class="text-2xl font-bold">Asset Mappings List</h2>
+        <p class="text-violet-100 text-sm opacity-80">View and manage role-based asset class assignments</p>
+      </div>
+      <div class="flex gap-2">
+         <mat-icon class="opacity-40 scale-150">account_tree</mat-icon>
+      </div>
+    </div>
+
+    <div class="p-4">
+      <ejs-grid 
+        [dataSource]="data" 
+        [allowPaging]="true" 
+        [pageSettings]="pageSettings" 
+        [toolbar]="toolbar"
+        [allowSorting]="true"
+        [allowFiltering]="true"
+        gridLines="Horizontal"
+        class="modern-grid"
+      >
+        <e-columns>
+          <!-- Actions Column -->
+          <e-column headerText="Actions" width="120" textAlign="Center">
+            <ng-template #template let-data>
+              <div class="flex items-center justify-center gap-2">
+                <button mat-icon-button color="primary" (click)="editMapping(data)" matTooltip="Edit Mapping">
+                  <mat-icon class="text-violet-600">edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteMapping(data)" matTooltip="Delete Mapping">
+                  <mat-icon class="text-rose-500">delete</mat-icon>
+                </button>
+              </div>
+            </ng-template>
+          </e-column>
+
+          <e-column field="role" headerText=" Role id" width="150" textAlign="Left"></e-column>
+          <e-column field="assetClass" headerText="Role Name" width="180"></e-column>
+          <e-column field="custodian" headerText="Custodian id" width="200"></e-column>
+          <e-column field="custodian" headerText="Created Date" width="200"></e-column>
+           <e-column field="dept" headerText="Department Name" width="200"></e-column>
+            <e-column field="assetClass" headerText="Status" width="180"></e-column>
+              <e-column field="custodian" headerText="Asset classname" width="200"></e-column>
+        </e-columns>
+      </ejs-grid>
+    </div>
+  </div>
+</div>

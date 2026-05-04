@@ -1,0 +1,25 @@
+::ng-deep .e-grid {
+  border: none !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+::ng-deep .e-grid .e-headercell {
+  background-color: #f8fafc !important;
+  color: #64748b !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  letter-spacing: 0.05em !important;
+}
+
+::ng-deep .e-grid .e-rowcell {
+  font-size: 14px !important;
+  color: #1e293b !important;
+  padding: 16px !important;
+}
+
+::ng-deep .modern-grid .e-toolbar {
+  background-color: transparent !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  padding: 8px !important;
+}

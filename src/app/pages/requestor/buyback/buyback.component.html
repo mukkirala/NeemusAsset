@@ -1,0 +1,43 @@
+<div class="min-h-screen bg-slate-50 p-8 flex flex-col items-center justify-center animate-in fade-in slide-in-from-bottom-3 duration-500">
+  
+  <div class="w-full max-w-2xl">
+    <app-common-card 
+      [title]="'Asset Buyback'" 
+      [subtitle]="'Request to buy back an asset currently allocated to you'"
+      [icon]="'shopping_cart'"
+      [buttonLabel]="'Send Request'"
+      [disabled]="buybackForm.invalid"
+      (onAction)="onSubmit()">
+      
+      <!-- Form Content -->
+      <form [formGroup]="buybackForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        
+        <!-- Select Asset -->
+        <div class="flex flex-col gap-2">
+          <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Select Asset</label>
+          <div class="relative">
+            <select formControlName="asset" 
+                    class="w-full h-12 px-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all appearance-none cursor-pointer">
+              <option value="" disabled selected>Choose an asset for buyback</option>
+              <option *ngFor="let a of allocatedAssets" [value]="a.id">{{ a.name }}</option>
+            </select>
+            <mat-icon class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</mat-icon>
+          </div>
+        </div>
+
+        <!-- Comments -->
+        <div class="flex flex-col gap-2">
+          <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Comments / Remarks</label>
+          <textarea formControlName="comments" placeholder="Provide any additional details..." rows="4"
+                    class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all resize-none"></textarea>
+        </div>
+
+        <!-- Hidden submit to allow Enter key to work -->
+        <button type="submit" class="hidden"></button>
+
+      </form>
+
+    </app-common-card>
+  </div>
+
+</div>

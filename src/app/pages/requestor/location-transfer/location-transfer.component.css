@@ -1,0 +1,10 @@
+/* Location Transfer Styles */
+:host {
+    display: block;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}

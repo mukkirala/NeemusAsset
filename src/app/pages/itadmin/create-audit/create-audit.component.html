@@ -1,0 +1,56 @@
+<div class="min-h-screen bg-slate-50 p-8 flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-700">
+  
+  <div class="w-full max-w-2xl">
+    <app-common-card
+      title="Create New Audit"
+      subtitle="Internal Asset Auditing System"
+      icon="fact_check"
+      buttonLabel="Save Audit Campaign"
+      (onAction)="onSave()">
+      
+      <div class="space-y-8 py-4">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Location</label>
+            <select [(ngModel)]="auditModel.location" name="location" class="px-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900">
+              <option value="">Select Location</option>
+              <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Audit Status</label>
+            <select [(ngModel)]="auditModel.auditStatus" name="auditStatus" class="px-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900">
+              <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Audit Name</label>
+          <input type="text" [(ngModel)]="auditModel.auditName" name="auditName" placeholder="Enter Audit Campaign Name" class="px-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900">
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Audit Description</label>
+          <textarea rows="4" [(ngModel)]="auditModel.auditDescription" name="auditDescription" placeholder="Provide detailed description of the audit scope" class="px-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900 resize-none"></textarea>
+        </div>
+
+        <!-- Using app-button explicitly as requested -->
+        <div class="pt-2">
+          <app-button 
+            label="Initialize Audit Session" 
+            variant="primary" 
+            (btnClick)="onSave()">
+          </app-button>
+        </div>
+
+      </div>
+
+    </app-common-card>
+  </div>
+
+</div>

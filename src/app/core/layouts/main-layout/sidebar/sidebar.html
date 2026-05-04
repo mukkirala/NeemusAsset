@@ -1,0 +1,65 @@
+<aside 
+  (mouseenter)="onMouseEnter()" 
+  (mouseleave)="onMouseLeave()"
+  [class.w-72]="!isEffectivelyCollapsed"
+  [class.w-20]="isEffectivelyCollapsed"
+  class="bg-[var(--bg-card)] border-r border-[var(--border-card)] h-full flex flex-col transition-all duration-500 shadow-lg overflow-hidden group z-50">
+  
+  
+
+  <!-- Navigation -->
+  <div class="flex-1 px-3 space-y-1 overflow-y-auto overflow-x-hidden custom-scrollbar">
+    <p [class.opacity-100]="!isEffectivelyCollapsed" [class.opacity-0]="isEffectivelyCollapsed" class="px-3 text-[10px] font-bold text-[var(--text-dim)] uppercase tracking-widest mb-4 transition-opacity duration-300 whitespace-nowrap">
+      Main Menu
+    </p>
+
+    <div *ngFor="let item of menuItems" class="space-y-1">
+      <!-- Direct Link -->
+      <a *ngIf="!item.subMenu"
+         [routerLink]="item.path" 
+         routerLinkActive="bg-sky-50 text-sky-600 shadow-sm border-r-4 border-sky-500" 
+         class="flex items-center gap-5 px-3.5 py-3 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-all group font-medium whitespace-nowrap overflow-hidden">
+        <mat-icon class="min-w-[24px] text-gray-400 group-hover:text-sky-500 transition-colors">{{ item.icon }}</mat-icon>
+        <span [class.opacity-100]="!isEffectivelyCollapsed" [class.opacity-0]="isEffectivelyCollapsed" class="transition-opacity duration-300">{{ item.name }}</span>
+      </a>
+
+      <!-- Submenu Parent -->
+      <div *ngIf="item.subMenu">
+        <button (click)="toggleSubMenu(item.name)"
+                class="w-full flex items-center gap-5 px-3.5 py-3 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-all group font-medium whitespace-nowrap overflow-hidden">
+          <mat-icon class="min-w-[24px] text-gray-400 group-hover:text-sky-500 transition-colors">{{ item.icon }}</mat-icon>
+          <span [class.opacity-100]="!isEffectivelyCollapsed" [class.opacity-0]="isEffectivelyCollapsed" class="flex-1 text-left transition-opacity duration-300">{{ item.name }}</span>
+          <mat-icon *ngIf="!isEffectivelyCollapsed" class="text-xs transition-transform duration-300" [class.rotate-180]="openMenus[item.name]">expand_more</mat-icon>
+        </button>
+
+        <!-- Submenu Items -->
+        <div *ngIf="openMenus[item.name] && !isEffectivelyCollapsed" 
+             class="ml-12 space-y-1 py-1 border-l border-gray-100 animate-in slide-in-from-top-1 duration-200">
+          <a *ngFor="let sub of item.subMenu"
+             [routerLink]="sub.path"
+             routerLinkActive="text-sky-600 font-bold"
+             class="block px-4 py-2 text-xs text-gray-500 hover:text-sky-600 transition-colors">
+            {{ sub.name }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Section -->
+  <div class="p-4 border-t border-gray-50 space-y-4 overflow-hidden">
+    <div [class.opacity-100]="!isEffectivelyCollapsed" [class.opacity-0]="isEffectivelyCollapsed" class="p-4 bg-gray-50 rounded-2xl transition-opacity duration-300 whitespace-nowrap">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[10px] font-bold shadow-sm">AD</div>
+        <div>
+          <p class="text-[10px] font-bold text-gray-900">Admin User</p>
+          <p class="text-[8px] text-gray-500">{{ userRole }}</p>
+        </div>
+      </div>
+    </div>
+    <button (click)="logout()" class="flex items-center gap-5 w-full px-3.5 py-3 rounded-xl text-red-500 hover:bg-red-50 transition-all font-bold group whitespace-nowrap overflow-hidden">
+      <mat-icon class="min-w-[24px] text-red-400 group-hover:text-red-600">logout</mat-icon>
+      <span [class.opacity-100]="!isEffectivelyCollapsed" [class.opacity-0]="isEffectivelyCollapsed" class="transition-opacity duration-300">Logout</span>
+    </button>
+  </div>
+</aside>

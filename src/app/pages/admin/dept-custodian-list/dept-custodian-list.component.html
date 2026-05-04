@@ -1,0 +1,30 @@
+<div class="p-6 bg-slate-50 min-h-screen">
+  <!-- Selection Header -->
+  <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-6">
+    <h2 class="text-xl font-bold text-slate-800 mb-4">Department Wise Custodians List</h2>
+    
+    <div class="flex items-center gap-4">
+      <mat-form-field appearance="outline" class="w-80">
+        <mat-label>Select Department</mat-label>
+        <mat-select [(ngModel)]="selectedDept">
+          <mat-option *ngFor="let dept of departments" [value]="dept.value">
+            {{dept.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-mini-fab color="primary" class="shadow-lg shadow-indigo-200" (click)="onSearch()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Syncfusion Grid -->
+  <app-data-table 
+    [title]="'Custodians Records'" 
+    [data]="filteredData" 
+    [columns]="columns" 
+    [allowGrouping]="true"
+    [pageSize]="10">
+  </app-data-table>
+</div>

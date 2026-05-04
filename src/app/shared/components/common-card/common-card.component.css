@@ -1,0 +1,210 @@
+:host {
+  display: block;
+  width: 100%;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.card-container {
+  padding: 10px;
+}
+
+.glass-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 32px;
+  padding: 40px;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.card-container:hover .glass-card {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.05),
+    0 30px 40px -10px rgba(79, 70, 229, 0.1);
+  border-color: rgba(79, 70, 229, 0.2);
+}
+
+/* Header Styles */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 10;
+}
+
+.icon-wrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  border-radius: 20px;
+  transform: rotate(-5deg);
+  transition: all 0.4s ease;
+  box-shadow: 0 8px 16px -4px rgba(79, 70, 229, 0.4);
+}
+
+.card-container:hover .icon-bg {
+  transform: rotate(0deg) scale(1.1);
+  border-radius: 16px;
+}
+
+.header-icon {
+  position: relative;
+  color: white;
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  z-index: 1;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: -0.025em;
+}
+
+.card-subtitle {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Body Styles */
+.card-body {
+  position: relative;
+  z-index: 10;
+  margin-bottom: 40px;
+}
+
+/* Footer Styles */
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 10;
+}
+
+.action-button {
+  position: relative;
+  background: #0f172a;
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 18px;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.3);
+}
+
+.action-button:hover {
+  background: #1e293b;
+  transform: scale(1.02);
+  box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.4);
+}
+
+.action-button:active {
+  transform: scale(0.98);
+}
+
+.button-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.action-button:hover .button-icon-wrapper {
+  transform: translateX(4px);
+}
+
+.button-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: 0.5s;
+}
+
+.action-button:hover .button-glow {
+  left: 100%;
+}
+
+/* Decorations */
+.decoration {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 1;
+  opacity: 0.05;
+  transition: all 1s ease;
+}
+
+.decoration-1 {
+  top: -150px;
+  right: -150px;
+  background: #4f46e5;
+}
+
+.decoration-2 {
+  bottom: -150px;
+  left: -150px;
+  background: #0ea5e9;
+}
+
+.card-container:hover .decoration-1 {
+  transform: translate(-50px, 50px) scale(1.2);
+  opacity: 0.1;
+}
+
+.card-container:hover .decoration-2 {
+  transform: translate(50px, -50px) scale(1.2);
+  opacity: 0.1;
+}
+
+.border-shimmer {
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  padding: 1px;
+  background: linear-gradient(135deg, transparent, rgba(79, 70, 229, 0.2), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}

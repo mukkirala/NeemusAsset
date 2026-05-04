@@ -1,0 +1,26 @@
+<div class="min-h-screen bg-slate-50 p-8 flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+  
+  <header>
+    <h1 class="text-3xl font-black text-slate-900 tracking-tight">Audit Assets</h1>
+    <p class="text-sm text-slate-500 font-medium mt-1">Manage and view all assets associated with audits</p>
+  </header>
+
+  <app-common-card 
+    title="Asset Audit Tracking" 
+    subtitle="View details of assets under audit"
+    icon="fact_check">
+    
+    <div class="border border-slate-200 rounded-xl overflow-hidden mt-4 shadow-sm">
+      <ejs-grid [dataSource]="auditAssetsData" [allowPaging]="true" [allowGrouping]="true" [pageSettings]="{ pageSize: 10 }">
+        <e-columns>
+          <e-column field="assetId" headerText="Asset ID" width="120"></e-column>
+          <e-column field="assetClass" headerText="Asset Class" width="150"></e-column>
+          <e-column field="assetDesc" headerText="Asset Description" width="250"></e-column>
+          <e-column field="auditStatus" headerText="Audit Status" width="150"></e-column>
+          <e-column field="auditedDate" headerText="Audited Date" width="150"></e-column>
+        </e-columns>
+      </ejs-grid>
+    </div>
+  </app-common-card>
+
+</div>

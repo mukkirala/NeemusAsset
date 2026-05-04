@@ -1,0 +1,210 @@
+<div [ngClass]="{'bg-[#020617] text-slate-100': darkMode, 'bg-slate-50 text-slate-900': !darkMode}" 
+     class="h-full flex overflow-hidden transition-all duration-500 font-sans">
+  
+  <!-- Sidebar (Recent Chats) -->
+  <aside [ngClass]="{'bg-[#0f172a] border-slate-800': darkMode, 'bg-white border-slate-200': !darkMode}"
+         class="hidden lg:flex flex-col w-72 border-r transition-colors duration-300">
+    <div class="p-6">
+      <button (click)="startNewChat()" 
+              class="w-full flex items-center justify-center gap-3 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold shadow-lg shadow-blue-500/20 hover:scale-[1.02] active:scale-95 transition-all">
+        <mat-icon class="text-lg">add</mat-icon>
+        New Chat
+      </button>
+    </div>
+    
+    <div class="flex-1 overflow-y-auto px-4 space-y-2 custom-scrollbar">
+      <p class="px-4 text-[10px] font-black uppercase tracking-[0.2em] opacity-40 mb-4">Recent Sessions</p>
+      <div *ngFor="let chat of chats; let i = index" 
+           (click)="activeChatIndex = i"
+           [ngClass]="{
+             'bg-blue-600/10 text-blue-400 border-blue-500/30': activeChatIndex === i,
+             'hover:bg-slate-800/50 text-slate-400 border-transparent': activeChatIndex !== i && darkMode,
+             'hover:bg-slate-100 text-slate-600 border-transparent': activeChatIndex !== i && !darkMode
+           }"
+           class="flex items-center gap-3 px-4 py-3.5 rounded-xl border cursor-pointer transition-all group">
+        <mat-icon class="text-lg opacity-60">chat_bubble_outline</mat-icon>
+        <span class="text-sm font-bold truncate flex-1">{{ chat.name }}</span>
+      </div>
+    </div>
+
+    <div class="p-6 border-t border-slate-800/50">
+      <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-800/20">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-400 to-blue-600 flex items-center justify-center text-white font-black text-xs shadow-lg">AD</div>
+        <div class="flex-1 truncate">
+          <p class="text-xs font-bold truncate">Admin User</p>
+          <p class="text-[10px] opacity-50 truncate">IT Administrator</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Chat Area -->
+  <main class="flex-1 flex flex-col relative overflow-hidden">
+    <!-- Header -->
+    <header [ngClass]="{'bg-[#020617]/80 border-slate-800': darkMode, 'bg-white/80 border-slate-100': !darkMode}"
+            class="h-20 px-8 flex items-center justify-between border-b backdrop-blur-xl sticky top-0 z-10">
+      <div class="flex items-center gap-4">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+          <mat-icon class="text-xl">smart_toy</mat-icon>
+        </div>
+        <div>
+          <h1 class="font-black text-lg tracking-tight">Neemus AI</h1>
+          <div class="flex items-center gap-2 text-[10px] opacity-60 uppercase font-black tracking-widest">
+            <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+            Asset Specialist
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button (click)="toggleDarkMode()" 
+                class="w-10 h-10 rounded-xl flex items-center justify-center transition-all hover:bg-slate-800/50 border border-transparent hover:border-slate-700">
+          <mat-icon class="text-xl">{{ darkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+        <button class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-800/50">
+          <mat-icon class="text-xl text-slate-400">more_vert</mat-icon>
+        </button>
+      </div>
+    </header>
+
+    <!-- Messages Container -->
+    <div class="flex-1 overflow-y-auto px-6 py-10 space-y-8 scroll-smooth custom-scrollbar">
+      <!-- Empty State -->
+      <div *ngIf="activeMessages.length === 0" class="max-w-2xl mx-auto flex flex-col items-center justify-center text-center pt-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div class="w-24 h-24 rounded-[40px] bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center text-white shadow-3xl shadow-blue-500/30 mb-8 transform hover:scale-110 transition-transform">
+          <mat-icon class="text-5xl">smart_toy</mat-icon>
+        </div>
+        <h2 class="text-4xl font-black mb-4 leading-tight">Your Intelligent<br/><span class="text-blue-500">Asset Management Partner</span></h2>
+        <p class="text-slate-500 text-lg max-w-md mx-auto mb-12">I can help you analyze inventory, track damaged items, or generate reports in seconds.</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+          <button *ngFor="let s of suggestions.slice(0, 4)" 
+                  (click)="sendMessage(s)"
+                  class="p-4 rounded-2xl border text-sm font-bold transition-all text-left group flex items-center justify-between"
+                  [ngClass]="darkMode ? 'bg-slate-900/50 border-slate-800 hover:border-blue-500' : 'bg-white border-slate-100 hover:border-blue-500 shadow-sm'">
+            {{ s }}
+            <mat-icon class="text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Message Bubbles -->
+      <div *ngFor="let msg of activeMessages; let i = index" 
+           class="max-w-4xl mx-auto flex gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300" 
+           [ngClass]="msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'">
+        
+        <!-- Avatar -->
+        <div class="flex-shrink-0 mt-1">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center shadow-md transition-transform hover:scale-110"
+               [ngClass]="msg.sender === 'user' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-blue-400'">
+            <mat-icon class="text-sm">{{ msg.sender === 'user' ? 'person' : 'smart_toy' }}</mat-icon>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="flex flex-col space-y-2 max-w-[85%]"
+             [ngClass]="msg.sender === 'user' ? 'items-end' : 'items-start'">
+          
+          <div [ngClass]="{
+               'bg-gradient-to-tr from-blue-600 to-indigo-600 text-white rounded-[24px] rounded-tr-none shadow-xl shadow-blue-500/20': msg.sender === 'user',
+               'bg-slate-800 text-slate-100 rounded-[24px] rounded-tl-none shadow-xl border border-slate-700/50': msg.sender === 'bot' && darkMode,
+               'bg-white text-slate-800 rounded-[24px] rounded-tl-none shadow-xl border border-slate-100': msg.sender === 'bot' && !darkMode
+             }"
+               class="px-6 py-4 text-[15px] leading-relaxed transition-all">
+            
+            <!-- Table Response -->
+            <div *ngIf="isTable(msg.text); else plainText" class="overflow-x-auto my-3 rounded-2xl border border-slate-700/30 overflow-hidden">
+              <table class="w-full text-sm border-collapse">
+                <thead>
+                  <tr class="bg-slate-700/50">
+                    <th *ngFor="let header of getTableRows(msg.text)[0]" class="px-4 py-3 text-left font-black text-blue-400 uppercase tracking-widest text-[10px]">
+                      {{ header }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let row of getTableRows(msg.text).slice(1)" 
+                      class="border-t border-slate-700/30 hover:bg-slate-700/20 transition-colors">
+                    <td *ngFor="let cell of row" class="px-4 py-3 opacity-90">
+                      {{ cell }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <ng-template #plainText>
+              <div class="whitespace-pre-wrap">{{ msg.text }}</div>
+            </ng-template>
+          </div>
+
+          <div class="flex items-center gap-2 px-2">
+            <span class="text-[9px] font-black uppercase tracking-widest opacity-40">{{ msg.time }}</span>
+            <div *ngIf="msg.sender === 'bot'" class="flex gap-1">
+              <button class="p-1 hover:text-blue-500 transition-colors"><mat-icon class="text-[12px]">thumb_up</mat-icon></button>
+              <button class="p-1 hover:text-red-500 transition-colors"><mat-icon class="text-[12px]">thumb_down</mat-icon></button>
+              <button class="p-1 hover:text-sky-500 transition-colors"><mat-icon class="text-[12px]">content_copy</mat-icon></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typing animation -->
+      <div *ngIf="loading" class="max-w-4xl mx-auto flex gap-4 animate-pulse">
+        <div class="w-9 h-9 rounded-xl bg-slate-800 flex items-center justify-center text-blue-400 shadow-md">
+          <mat-icon class="text-sm">smart_toy</mat-icon>
+        </div>
+        <div class="bg-slate-800/50 px-6 py-4 rounded-[24px] rounded-tl-none border border-slate-700/50 flex gap-1.5 items-center">
+          <div class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-bounce"></div>
+          <div class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+          <div class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+        </div>
+      </div>
+
+      <div #messagesEnd></div>
+    </div>
+
+    <!-- Input Bar Area -->
+    <footer class="p-8 pb-10">
+      <div class="max-w-4xl mx-auto space-y-6">
+        <!-- Suggestions Carousel -->
+        <div *ngIf="activeMessages.length > 0" class="flex gap-2 overflow-x-auto no-scrollbar pb-2">
+          <button *ngFor="let text of suggestions" 
+                  (click)="sendMessage(text)" 
+                  [disabled]="loading"
+                  [ngClass]="darkMode ? 'bg-slate-900/50 border-slate-800 text-slate-400 hover:border-blue-500' : 'bg-white border-slate-100 text-slate-600 hover:border-blue-500 shadow-sm'"
+                  class="whitespace-nowrap px-5 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest border transition-all hover:scale-105 active:scale-95 disabled:opacity-50">
+            {{ text }}
+          </button>
+        </div>
+
+        <!-- Real Input -->
+        <div class="relative group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-[30px] opacity-20 blur group-focus-within:opacity-40 transition-opacity"></div>
+          <div [ngClass]="darkMode ? 'bg-[#0f172a] border-slate-700' : 'bg-white border-slate-100 shadow-2xl shadow-blue-500/5'"
+               class="relative flex items-center border rounded-[28px] overflow-hidden transition-all focus-within:border-blue-500/50">
+            <input [(ngModel)]="input" 
+                   (keydown)="handleKeyPress($event)"
+                   [ngClass]="darkMode ? 'text-white' : 'text-slate-900'"
+                   class="flex-1 bg-transparent px-8 py-5 outline-none text-[15px] placeholder-slate-500" 
+                   placeholder="Message Neemus AI... (e.g. 'Show total assets')" />
+            
+            <div class="flex items-center gap-2 pr-4">
+              <button class="p-3 text-slate-500 hover:text-blue-500 transition-colors">
+                <mat-icon>attach_file</mat-icon>
+              </button>
+              <button (click)="sendMessage()" 
+                      [disabled]="!input.trim()"
+                      [ngClass]="input.trim() ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20' : 'bg-slate-700 text-slate-500 cursor-not-allowed'"
+                      class="w-12 h-12 rounded-2xl transition-all duration-300 flex items-center justify-center hover:scale-105 active:scale-95">
+                <mat-icon>arrow_upward</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <p class="text-center text-[9px] font-black uppercase tracking-[0.3em] opacity-30">Neemus AI may provide inaccurate data. Verify critical reports.</p>
+      </div>
+    </footer>
+  </main>
+</div>

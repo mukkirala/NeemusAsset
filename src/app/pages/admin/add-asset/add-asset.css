@@ -1,0 +1,30 @@
+/* Modern styles for Mat Stepper Headers */
+::ng-deep .mat-horizontal-stepper-header-container {
+  padding: 1.5rem 2.5rem !important;
+  background: #f8fafc !important;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background: linear-gradient(to right, #0ea5e9, #4f46e5) !important;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3) !important;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-active {
+  background: #0ea5e9 !important;
+}
+
+::ng-deep .mat-step-label-selected {
+  color: #0f172a !important;
+  font-weight: 900 !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+}
+
+::ng-deep .mat-step-label {
+  color: #94a3b8 !important;
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+}

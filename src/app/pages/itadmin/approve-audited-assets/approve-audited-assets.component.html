@@ -1,0 +1,92 @@
+<div class="min-h-screen bg-slate-50 p-8 flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+  
+  <header>
+    <h1 class="text-3xl font-black text-slate-900 tracking-tight">Approve Audited Assets</h1>
+    <p class="text-sm text-slate-500 font-medium mt-1">Review and validate asset status changes from recent audits</p>
+  </header>
+
+  <app-common-card 
+    title="Selection & Pending Validation"
+    subtitle="Select audit and view pending assets"
+    buttonLabel="Add to Queue"
+    icon="add_circle"
+    (onAction)="onAdd()">
+    
+    <div class="flex flex-col gap-2 max-w-md mb-6">
+      <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Select Audit</label>
+      <div class="flex gap-2">
+        <select [(ngModel)]="selectedAudit" class="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900">
+          <option value="test audit">test audit</option>
+        </select>
+        <button class="p-3 bg-sky-500 text-white rounded-2xl shadow-lg shadow-sky-200 hover:bg-sky-600 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="border border-slate-200 rounded-xl overflow-hidden">
+      <ejs-grid [dataSource]="auditedData" [allowPaging]="true" [allowGrouping]="true" [pageSettings]="{ pageSize: 5 }">
+        <e-columns>
+          <e-column type="checkbox" width="50"></e-column>
+          <e-column field="assetId" headerText="Asset ID" width="100"></e-column>
+          <e-column field="mainAssetNumber" headerText="Main Asset Number" width="150"></e-column>
+          <e-column field="assetClass" headerText="Asset Class" width="120"></e-column>
+          <e-column field="assetDesc" headerText="Asset Desc" width="250"></e-column>
+          <e-column field="auditName" headerText="Audit Name" width="150"></e-column>
+          <e-column field="auditBy" headerText="Audit By" width="120"></e-column>
+          <e-column field="auditorRemarks" headerText="Auditor Remarks" width="180"></e-column>
+          <e-column field="auditedDate" headerText="Audited Date" width="130"></e-column>
+          <e-column field="assetStatus" headerText="Asset Status" width="150"></e-column>
+          <e-column field="statusChangedTo" headerText="Status ChangedTo" width="150"></e-column>
+          <e-column field="assetLocation" headerText="Asset Location" width="150"></e-column>
+          <e-column field="locationChangedTo" headerText="Location ChangedTo" width="150"></e-column>
+        </e-columns>
+      </ejs-grid>
+    </div>
+  </app-common-card>
+
+  <app-common-card
+    title="Approval Queue"
+    subtitle="Assets selected for final approval"
+    buttonLabel="Approve"
+    icon="check_circle"
+    (onAction)="onApprove()">
+
+    <div class="border border-slate-200 rounded-xl overflow-hidden mb-6">
+      <ejs-grid [dataSource]="selectedData" [allowPaging]="true" [allowGrouping]="true" [pageSettings]="{ pageSize: 5 }">
+        <e-columns>
+          <e-column field="assetId" headerText="Asset ID" width="100"></e-column>
+          <e-column field="mainAssetNumber" headerText="Main Asset Number" width="150"></e-column>
+          <e-column field="assetClass" headerText="Asset Class" width="120"></e-column>
+          <e-column field="assetDesc" headerText="Asset Desc" width="250"></e-column>
+          <e-column field="auditName" headerText="Audit Name" width="150"></e-column>
+          <e-column field="auditBy" headerText="Audit By" width="120"></e-column>
+          <e-column field="auditorRemarks" headerText="Auditor Remarks" width="180"></e-column>
+          <e-column field="auditedDate" headerText="Audited Date" width="130"></e-column>
+          <e-column field="assetStatus" headerText="Asset Status" width="150"></e-column>
+          <e-column field="auditedStatus" headerText="Audited Status" width="150"></e-column>
+          <e-column field="assetLocation" headerText="Asset Location" width="150"></e-column>
+          <e-column field="locationChangedTo" headerText="Location ChangedTo" width="150"></e-column>
+          <e-column field="assetCustodian" headerText="Asset Custodian" width="140"></e-column>
+        </e-columns>
+      </ejs-grid>
+    </div>
+
+    <div class="flex flex-col gap-2 mb-6">
+      <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Remarks</label>
+      <textarea rows="3" [(ngModel)]="remarks" class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900 resize-none"></textarea>
+    </div>
+
+    <div class="flex justify-end border-t border-slate-100 pt-6 mt-2">
+      <button 
+        (click)="onReject()"
+        class="py-3 px-8 rounded-xl font-semibold bg-rose-500 text-white shadow-lg shadow-rose-100 hover:bg-rose-600 transition-all active:scale-95">
+        Reject
+      </button>
+    </div>
+
+  </app-common-card>
+
+</div>

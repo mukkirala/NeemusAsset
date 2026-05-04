@@ -1,0 +1,44 @@
+<div class="container-center">
+  <div class="card-wrapper">
+    <app-common-card 
+      title="Assign HR/Finance Authority" 
+      subtitle="Designate department-level authorities for HR and Finance" 
+      buttonLabel="Save Authority" 
+      icon="account_balance"
+      (onAction)="saveAuthority()">
+      
+      <div class="flex flex-col gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Select Department -->
+          <div class="flex flex-col gap-2">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Department Type</span>
+            <mat-form-field appearance="outline" class="modern-field">
+              <mat-label>Select Department</mat-label>
+              <mat-select [(ngModel)]="authority.dept">
+                <mat-option *ngFor="let dept of departments" [value]="dept.value">
+                  {{dept.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix class="text-indigo-500 mr-2">business</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <!-- Select Employee -->
+          <div class="flex flex-col gap-2">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Authority Person</span>
+            <mat-form-field appearance="outline" class="modern-field">
+              <mat-label>Select Employee ID</mat-label>
+              <mat-select [(ngModel)]="authority.empId">
+                <mat-option *ngFor="let emp of employees" [value]="emp.id">
+                  {{emp.name}} ({{emp.id}})
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix class="text-indigo-500 mr-2">person_pin</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+    </app-common-card>
+  </div>
+</div>

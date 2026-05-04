@@ -1,0 +1,50 @@
+<div class="p-6 bg-slate-50 min-h-screen">
+  <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+    <!-- Custom Header -->
+    <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-gradient-to-r from-orange-600 to-amber-600 text-white">
+      <div>
+        <h2 class="text-2xl font-bold">HR/Finance Authorities</h2>
+        <p class="text-orange-100 text-sm opacity-80">Manage designated authorities for specific departments</p>
+      </div>
+      <div class="flex gap-2">
+         <mat-icon class="opacity-40 scale-150">account_balance</mat-icon>
+      </div>
+    </div>
+
+    <div class="p-4">
+      <ejs-grid 
+        [dataSource]="data" 
+        [allowPaging]="true" 
+        [pageSettings]="pageSettings" 
+        [toolbar]="toolbar"
+        [allowSorting]="true"
+        [allowFiltering]="true"
+        gridLines="Horizontal"
+        class="modern-grid"
+      >
+        <e-columns>
+          <!-- Actions Column -->
+          <e-column headerText="Actions" width="120" textAlign="Center">
+            <ng-template #template let-data>
+              <div class="flex items-center justify-center gap-2">
+                <button mat-icon-button color="primary" (click)="editAuthority(data)" matTooltip="Edit Authority">
+                  <mat-icon class="text-orange-600">edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteAuthority(data)" matTooltip="Delete Authority">
+                  <mat-icon class="text-rose-500">delete</mat-icon>
+                </button>
+              </div>
+            </ng-template>
+          </e-column>
+
+          <e-column field="dept" headerText="Department" width="200" textAlign="Left"></e-column>
+          <e-column field="empId" headerText="Employee ID" width="150"></e-column>
+           <e-column field="empName" headerText="Employee Name" width="200"></e-column>
+            <e-column field="empDesignation" headerText="Designation" width="150"></e-column>
+              <e-column field="empEmail" headerText="Email" width="250"></e-column>
+            
+        </e-columns>
+      </ejs-grid>
+    </div>
+  </div>
+</div>

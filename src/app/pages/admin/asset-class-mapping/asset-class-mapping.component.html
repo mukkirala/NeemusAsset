@@ -1,0 +1,58 @@
+<div class="container-center">
+  <div class="card-wrapper">
+    <app-common-card 
+      title="Asset Class Mapping" 
+      subtitle="Map roles and asset classes to specific custodians" 
+      buttonLabel="Save Mapping" 
+      icon="account_tree"
+      (onAction)="saveMapping()">
+      
+      <div class="flex flex-col gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Select Role -->
+          <div class="flex flex-col gap-2">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">System Role</span>
+            <mat-form-field appearance="outline" class="modern-field">
+              <mat-label>Select Role</mat-label>
+              <mat-select [(ngModel)]="mapping.role">
+                <mat-option *ngFor="let role of roles" [value]="role.value">
+                  {{role.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix class="text-indigo-500 mr-2">shield</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <!-- Select Asset Class -->
+          <div class="flex flex-col gap-2">
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Asset Category</span>
+            <mat-form-field appearance="outline" class="modern-field">
+              <mat-label>Select Asset Class</mat-label>
+              <mat-select [(ngModel)]="mapping.assetClass">
+                <mat-option *ngFor="let ac of assetClasses" [value]="ac.value">
+                  {{ac.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix class="text-indigo-500 mr-2">category</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Select Custodian -->
+        <div class="flex flex-col gap-2">
+          <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Assign Custodian</span>
+          <mat-form-field appearance="outline" class="modern-field">
+            <mat-label>Select Custodian</mat-label>
+            <mat-select [(ngModel)]="mapping.custodian">
+              <mat-option *ngFor="let emp of employees" [value]="emp.id">
+                {{emp.name}} ({{emp.id}})
+              </mat-option>
+            </mat-select>
+            <mat-icon matPrefix class="text-indigo-500 mr-2">person</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </app-common-card>
+  </div>
+</div>
