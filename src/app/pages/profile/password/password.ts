@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { ButtonComponent } from '../../../shared/components/button/button';
 
 @Component({
   selector: 'app-password',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDialogModule, MatIconModule],
+  imports: [CommonModule, FormsModule, MatDialogModule, MatIconModule, ButtonComponent],
   templateUrl: './password.html'
 })
 export class PasswordComponent {

@@ -92,23 +92,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
             { name: "Dept wise Employees", path: "/admin/dept-custodian-list" },
           ],
         },
-        {
-          name: "Location Master",
-          icon: "location_on",
-          subMenu: [
-            { name: "View Location", path: "/admin/assets/location" },
-          ],
-        },
-        {
-          name: "Overview Grid",
-          path: "/overview-grid",
-          icon: "grid_view"
-        },
-        {
-          name: "Dev Layout",
-          path: "/dev",
-          icon: "code"
-        },
+        // {
+        //   name: "Location Master",
+        //   icon: "location_on",
+        //   subMenu: [
+        //     { name: "View Location", path: "/admin/assets/location" },
+        //   ],
+        // },
+      
+       
       ],
 
       "IT-Admin": [

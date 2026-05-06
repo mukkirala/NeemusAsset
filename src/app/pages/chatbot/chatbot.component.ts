@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { ChatbotService } from '../../core/services/chatbot.service';
 import { Chat, Message } from '../../core/models/chat.model';
+import { ButtonComponent } from '../../shared/components/button/button';
 
 @Component({
   selector: 'app-ai-chatbot',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatIconModule],
+  imports: [CommonModule, FormsModule, MatIconModule, ButtonComponent],
   templateUrl: './chatbot.component.html'
 })
 export class ChatbotComponent implements OnInit, AfterViewChecked {

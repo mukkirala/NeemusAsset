@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GridModule, FilterService, SortService, PageService, GroupService } from '@syncfusion/ej2-angular-grids';
 import { CommonCardComponent } from '../../../shared/components/common-card/common-card.component';
+import { ButtonComponent } from '../../../shared/components/button/button';
 
 @Component({
   selector: 'app-audit-completion',
   standalone: true,
-  imports: [CommonModule, FormsModule, GridModule, CommonCardComponent],
+  imports: [CommonModule, FormsModule, GridModule, CommonCardComponent, ButtonComponent],
   providers: [FilterService, SortService, PageService, GroupService],
   templateUrl: './audit-completion.component.html',
   styleUrls: []

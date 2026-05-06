@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataTableComponent, TableColumn } from '../../../shared/components/data-table/data-table.component';
+import { ButtonComponent } from '../../../shared/components/button/button';
 
 import { QRCodeGeneratorModule } from '@syncfusion/ej2-angular-barcode-generator';
 
 @Component({
   selector: 'app-print-qr-codes',
   standalone: true,
-  imports: [CommonModule, DataTableComponent, QRCodeGeneratorModule],
+  imports: [CommonModule, DataTableComponent, QRCodeGeneratorModule, ButtonComponent],
   templateUrl: './print-qr-codes.component.html',
   styleUrls: []
 })

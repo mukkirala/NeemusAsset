@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { ButtonComponent } from '../button/button';
 
 @Component({
   selector: 'app-common-card',
@@ -13,7 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatButtonModule,
     MatRippleModule,
-    MatIconModule
+    MatIconModule,
+    ButtonComponent
   ],
   templateUrl: './common-card.component.html',
   styleUrls: ['./common-card.component.css']
@@ -21,9 +23,12 @@ import { MatIconModule } from '@angular/material/icon';
 export class CommonCardComponent {
   @Input() title: string = '';
   @Input() subtitle: string = '';
-  @Input() buttonLabel: string = 'Action';
+  @Input() buttonLabel: string = '';
+  @Input() buttonIcon: string = '';
+  @Input() buttonVariant: 'primary' | 'dark' | 'green' = 'primary';
   @Input() icon: string = 'arrow_forward';
   @Input() disabled: boolean = false;
+  @Input() isFixed: boolean = false;
   @Output() onAction = new EventEmitter<void>();
 
   handleAction() {

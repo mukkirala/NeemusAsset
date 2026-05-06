@@ -5,11 +5,12 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { PasswordComponent } from './password/password';
 import { AuthService } from '../../core/services/auth.service';
+import { ButtonComponent } from '../../shared/components/button/button';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDialogModule, MatIconModule],
+  imports: [CommonModule, FormsModule, MatDialogModule, MatIconModule, ButtonComponent],
   templateUrl: './profile.html'
 })
 export class ProfileComponent implements OnInit {
@@ -64,7 +65,7 @@ export class ProfileComponent implements OnInit {
 
   openChangePassword() {
     this.dialog.open(PasswordComponent, {
-      width: '450px',
+      width: '800px',
       maxWidth: '95vw',
       panelClass: 'custom-dialog-container',
       // Adding a subtle backdrop blur

@@ -1,30 +1,83 @@
-/* Modern styles for Mat Stepper Headers */
+/* ═══════════════════════════════════════════════════════════════
+   LIGHT CORPORATE STEPPER THEME
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Stepper Header Bar */
 ::ng-deep .mat-horizontal-stepper-header-container {
-  padding: 1.5rem 2.5rem !important;
-  background: #f8fafc !important;
+  padding: 1.5rem 2rem !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #e5e7eb !important;
 }
 
-::ng-deep .mat-step-header .mat-step-icon-selected {
-  background: linear-gradient(to right, #0ea5e9, #4f46e5) !important;
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3) !important;
+/* ── Step Header (Container for Icon + Label) ── */
+::ng-deep .mat-step-header {
+  padding: 16px 24px !important;
+  border-radius: 4px !important;
+  transition: background-color 0.2s ease !important;
 }
 
-::ng-deep .mat-step-header .mat-step-icon-active {
-  background: #0ea5e9 !important;
+/* Active Step Header Background (like the image) */
+::ng-deep .mat-step-header[aria-selected="true"] {
+  background-color: #f3f4f6 !important;
 }
 
-::ng-deep .mat-step-label-selected {
-  color: #0f172a !important;
-  font-weight: 900 !important;
-  font-size: 0.8rem !important;
-  letter-spacing: 0.05em !important;
-  text-transform: uppercase !important;
+/* ── Step Icon (circle) ── */
+::ng-deep .mat-step-icon {
+  width: 28px !important;
+  height: 28px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  border-radius: 50% !important;
+  transition: all 0.3s ease !important;
+  background: #e5e7eb !important; /* Inactive gray */
+  color: #6b7280 !important;
 }
 
+/* Active Step Icon — Orange */
+::ng-deep .mat-step-icon-selected {
+  background: #f97316 !important; /* Orange */
+  color: #ffffff !important;
+}
+
+/* Completed Step Icon — Green */
+::ng-deep .mat-step-icon-state-done,
+::ng-deep .mat-step-icon-state-edit:not(.mat-step-icon-selected) {
+  background: #22c55e !important; /* Green */
+  color: #ffffff !important;
+}
+
+/* Hide default material icons if we want numbers, but material usually shows edit/done icons. 
+   To force checkmarks for done, Material does this by default if state is 'done'. */
+
+/* ── Step Labels ── */
 ::ng-deep .mat-step-label {
-  color: #94a3b8 !important;
-  font-weight: 700 !important;
-  font-size: 0.75rem !important;
-  text-transform: uppercase !important;
+  color: #6b7280 !important;
+  font-weight: 500 !important;
+  font-size: 0.85rem !important;
+  margin-top: 12px !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+::ng-deep .mat-step-label-selected,
+::ng-deep .mat-step-label-active {
+  color: #111827 !important;
+  font-weight: 600 !important;
+}
+
+/* ── Step Connector Line ── */
+::ng-deep .mat-stepper-horizontal-line {
+  border-top-color: #e5e7eb !important;
+  border-top-width: 2px !important;
+  margin: 0 -16px !important; /* pull it closer to the icons */
+}
+
+/* ── Content Area ── */
+::ng-deep .mat-horizontal-content-container {
+  padding: 0 !important;
+}
+
+/* Remove hover ripple backgrounds to keep it clean */
+::ng-deep .mat-step-header .mat-step-header-ripple {
+  display: none !important;
 }

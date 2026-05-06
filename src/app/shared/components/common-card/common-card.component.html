@@ -2,10 +2,7 @@
   <div class="glass-card">
     <!-- Header Section -->
     <div class="card-header">
-      <div class="icon-wrapper">
-        <div class="icon-bg"></div>
-        <mat-icon class="header-icon">{{icon}}</mat-icon>
-      </div>
+ 
       <div class="header-text">
         <h2 class="card-title">{{title}}</h2>
         <p class="card-subtitle">{{subtitle}}</p>
@@ -18,18 +15,15 @@
     </div>
 
     <!-- Footer Actions -->
-    <div class="card-footer">
-      <button mat-ripple class="action-button" 
-              [disabled]="disabled"
-              [class.opacity-50]="disabled"
-              [class.cursor-not-allowed]="disabled"
-              (click)="handleAction()">
-        <span class="button-label">{{buttonLabel}}</span>
-        <div class="button-icon-wrapper">
-          <mat-icon class="button-icon">{{icon}}</mat-icon>
-        </div>
-        <div class="button-glow" *ngIf="!disabled"></div>
-      </button>
+    <div class="card-footer" *ngIf="buttonLabel">
+      <app-button 
+        [label]="buttonLabel"
+        [icon]="buttonIcon || icon"
+        [variant]="buttonVariant"
+        [disabled]="disabled"
+        [width]="'auto'"
+        (btnClick)="handleAction()">
+      </app-button>
     </div>
 
     <!-- Decorative Elements -->

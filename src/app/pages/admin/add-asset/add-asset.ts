@@ -5,6 +5,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { AssetService } from '../../../core/services/asset.service';
+import { ButtonComponent } from '../../../shared/components/button/button';
 
 @Component({
   selector: 'app-add-asset',
@@ -13,7 +14,8 @@ import { AssetService } from '../../../core/services/asset.service';
     CommonModule,
     ReactiveFormsModule,
     MatStepperModule,
-    MatIconModule
+    MatIconModule,
+    ButtonComponent
   ],
   templateUrl: './add-asset.html',
   styleUrl: './add-asset.css'
