@@ -1,4 +1,4 @@
-<div class="container-center p-6">
+<!-- <div class="container-center p-6">
   <div class="card-wrapper max-w-4xl mx-auto">
     <app-common-card 
       title="Add Location" 
@@ -10,32 +10,32 @@
       <div class="flex flex-col gap-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           
-          <!-- Location Name -->
+          
           <div class="flex flex-col gap-2">
             <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Location Name</span>
             <mat-form-field appearance="outline" class="modern-field w-full">
               <mat-label>Location</mat-label>
-              <input matInput [(ngModel)]="locationData.location" placeholder="e.g. Headquarters" required>
+              <input matInput [(ngModel)]="locationData.Location" placeholder="e.g. Headquarters" required>
               <mat-icon matPrefix class="text-indigo-500 mr-2">business</mat-icon>
             </mat-form-field>
           </div>
 
-          <!-- Location Code -->
+         
           <div class="flex flex-col gap-2">
             <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Location Code</span>
             <mat-form-field appearance="outline" class="modern-field w-full">
               <mat-label>Location Code</mat-label>
-              <input matInput [(ngModel)]="locationData.code" placeholder="e.g. HQ-01" required>
+              <input matInput [(ngModel)]="locationData.LocationCode" placeholder="e.g. HQ-01" required>
               <mat-icon matPrefix class="text-indigo-500 mr-2">tag</mat-icon>
             </mat-form-field>
           </div>
 
-          <!-- Block -->
+         
           <div class="flex flex-col gap-2 md:col-span-2">
             <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest ml-1">Block</span>
             <mat-form-field appearance="outline" class="modern-field w-full">
               <mat-label>Block</mat-label>
-              <input matInput [(ngModel)]="locationData.block" placeholder="e.g. Building A" required>
+              <input matInput [(ngModel)]="locationData.Block" placeholder="e.g. Building A" required>
               <mat-icon matPrefix class="text-indigo-500 mr-2">domain</mat-icon>
             </mat-form-field>
           </div>
@@ -45,4 +45,68 @@
 
     </app-common-card>
   </div>
+</div> -->
+
+<div class="location-container">
+
+    <div class="header-section">
+        <h1>Add Location</h1>
+    </div>
+
+    <div class="grid-card">
+
+        <ejs-grid
+            #grid
+            [dataSource]="locationData"
+            height="300"
+            [toolbar]="toolbarOptions"
+            [editSettings]="editSettings"
+            allowPaging="true"
+            (actionComplete)="actionComplete($event)">
+
+            <e-columns>
+
+                <e-column
+                    field="Location"
+                    headerText="Location Name"
+                    width="180"
+                    [validationRules]="{ required: true }">
+                </e-column>
+
+                <e-column
+                    field="LocationCode"
+                    headerText="Location Code"
+                    width="150"
+                    [validationRules]="{ required: true }">
+                </e-column>
+
+                <e-column
+                    field="Block"
+                    headerText="Block"
+                    width="150"
+                    [validationRules]="{ required: true }">
+                </e-column>
+                <!-- <e-column headerText="Actions" width="120">
+
+    <ng-template #template let-data>
+
+        <span class="e-icons e-edit action-icon edit-icon"></span>
+
+        <span class="e-icons e-delete action-icon delete-icon"></span>
+
+    </ng-template>
+
+</e-column> -->
+
+
+            </e-columns>
+<e-column
+    headerText="Actions"
+    width="120"
+    [commands]="commands">
+</e-column>
+        </ejs-grid>
+
+    </div>
+
 </div>

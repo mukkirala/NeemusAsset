@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\pages",
+    "\\src\\app\\pages\\admin",
+    "\\src\\app\\pages\\admin\\add-asset",
+    "\\src\\app\\pages\\approver"
+  ],
+  "SelectedNode": "\\src\\app\\pages\\admin\\add-asset\\add-asset.css",
+  "PreviewInSolutionExplorer": false
+}
