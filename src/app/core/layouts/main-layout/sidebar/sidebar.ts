@@ -94,6 +94,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
             { name: "Document Master", path: "/admin/document-master" },
             { name: "Service Type", path: "/admin/service-type" },
             { name: "Asset Type", path: "/admin/asset-type" },
+            { name: "Asset Class Master", path: "/admin/asset-class" },
           ],
         },
         {

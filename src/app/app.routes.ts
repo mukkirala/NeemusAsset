@@ -40,6 +40,7 @@ export const routes: Routes = [
       { path: 'document-master', loadComponent: () => import('./pages/admin/document-master/document-master.component').then(m => m.DocumentMasterComponent) },
       { path: 'service-type', loadComponent: () => import('./pages/admin/service-type/service-type.component').then(m => m.ServiceTypeComponent) },
       { path: 'asset-type', loadComponent: () => import('./pages/admin/asset-type/asset-type.component').then(m => m.AssetTypeComponent) },
+      { path: 'asset-class', loadComponent: () => import('./pages/admin/asset-class/asset-class.component').then(m => m.AssetClassComponent) },
       // Audits moved from itadmin and auditor
       { path: 'CreateAudit', loadComponent: () => import('./pages/itadmin/create-audit/create-audit.component').then(m => m.CreateAuditComponent) },
       { path: 'ApproveAuditedAssets', loadComponent: () => import('./pages/itadmin/approve-audited-assets/approve-audited-assets.component').then(m => m.ApproveAuditedAssetsComponent) },
