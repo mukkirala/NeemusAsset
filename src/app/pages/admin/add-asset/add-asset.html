@@ -16,19 +16,19 @@
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">Main Asset Number *</label>
+              <label >Main Asset Number<span class="text-red-500">*</span></label>
               <input formControlName="mainAssetNumber" placeholder="e.g. AST-2024-001"
                      class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
             </div>
 
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">Sub Number *</label>
+              <label >Sub Number <span class="text-red-500">*</span></label>
               <input formControlName="subNumber" placeholder="00"
                      class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
             </div>
 
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">Custodian Department *</label>
+              <label >Custodian Department <span class="text-red-500">*</span></label>
               <select formControlName="custodianDept" 
                       class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium appearance-none">
                 <option value="">Select Department</option>
@@ -40,13 +40,13 @@
             </div>
 
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">Quantity</label>
+              <label >Quantity</label>
               <input type="number" formControlName="quantity" placeholder="1"
                      class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
             </div>
 
             <div class="space-y-2 md:col-span-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">Asset Description *</label>
+              <label >Asset Description <span class="text-red-500">*</span></label>
               <textarea formControlName="assetDescription" rows="3" placeholder="Detailed description of the asset..."
                         class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium resize-none"></textarea>
             </div>
@@ -65,25 +65,25 @@
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">First Acquisition Date *</label>
+              <label >First Acquisition Date *</label>
               <input type="date" formControlName="acquisitionDate"
                      class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium uppercase text-xs">
             </div>
 
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">Capitalization Date *</label>
+              <label >Capitalization Date *</label>
               <input type="date" formControlName="capitalizationDate"
                      class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium uppercase text-xs">
             </div>
 
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">Unit *</label>
+              <label >Unit *</label>
               <input formControlName="unit" placeholder="e.g. PCS, NOS"
                      class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
             </div>
 
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">Custodian ID *</label>
+              <label >Custodian ID *</label>
               <input formControlName="custodianId" placeholder="1500454"
                      class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
             </div>
@@ -103,13 +103,13 @@
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">Location *</label>
+              <label >Location *</label>
               <input formControlName="location" placeholder="e.g. HQ-Building-A"
                      class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
             </div>
 
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">Asset Class *</label>
+              <label >Asset Class *</label>
               <select formControlName="assetClass" 
                       class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium appearance-none">
                 <option value="">Select Class</option>
@@ -121,7 +121,7 @@
             </div>
 
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">Status Code *</label>
+              <label >Status Code *</label>
               <select formControlName="statusCode" 
                       class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium appearance-none">
                 <option value="Active">Active</option>
@@ -132,7 +132,7 @@
             </div>
 
             <div class="space-y-2">
-              <label class="text-[10px] font-black uppercase tracking-widest text-black pl-1">Component</label>
+              <label >Component</label>
               <input formControlName="component" placeholder="Main / Part"
                      class="w-full px-5 py-4 bg-white text-black border border-slate-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all font-medium">
             </div>
@@ -162,23 +162,23 @@
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">Main Asset Number</p>
+                <p >Main Asset Number</p>
                 <p class="text-sm font-bold text-slate-900">{{ basicInfoForm.value.mainAssetNumber || '—' }}</p>
               </div>
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">Sub Number</p>
+                <p >Sub Number</p>
                 <p class="text-sm font-bold text-slate-900">{{ basicInfoForm.value.subNumber || '—' }}</p>
               </div>
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">Custodian Department</p>
+                <p >Custodian Department</p>
                 <p class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full inline-block">{{ basicInfoForm.value.custodianDept || '—' }}</p>
               </div>
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">Quantity</p>
+                <p >Quantity</p>
                 <p class="text-sm font-bold text-slate-900">{{ basicInfoForm.value.quantity ?? '—' }}</p>
               </div>
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4 sm:col-span-2">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">Asset Description</p>
+                <p >Asset Description</p>
                 <p class="text-xs font-medium text-slate-600 leading-relaxed">{{ basicInfoForm.value.assetDescription || '—' }}</p>
               </div>
             </div>
@@ -194,19 +194,19 @@
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">First Acquisition Date</p>
+                <p >First Acquisition Date</p>
                 <p class="text-sm font-bold text-slate-900">{{ acquisitionForm.value.acquisitionDate || '—' }}</p>
               </div>
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">Capitalization Date</p>
+                <p >Capitalization Date</p>
                 <p class="text-sm font-bold text-slate-900">{{ acquisitionForm.value.capitalizationDate || '—' }}</p>
               </div>
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">Unit</p>
+                <p cl>Unit</p>
                 <p class="text-sm font-bold text-slate-900">{{ acquisitionForm.value.unit || '—' }}</p>
               </div>
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">Custodian ID</p>
+                <p >Custodian ID</p>
                 <p class="text-sm font-bold font-mono text-slate-900">{{ acquisitionForm.value.custodianId || '—' }}</p>
               </div>
             </div>
@@ -214,7 +214,7 @@
 
           <!-- Section 3: Classification -->
           <div class="bg-white border border-slate-100 rounded-[28px] p-6 shadow-sm">
-            <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-50">
+            <div >
               <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
                 <mat-icon>category</mat-icon>
               </div>
@@ -222,15 +222,15 @@
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">Location</p>
+                <p >Location</p>
                 <p class="text-sm font-bold text-slate-900">{{ locationForm.value.location || '—' }}</p>
               </div>
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">Asset Class</p>
+                <p >Asset Class</p>
                 <p class="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full inline-block">{{ locationForm.value.assetClass || '—' }}</p>
               </div>
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">Status Code</p>
+                <p >Status Code</p>
                 <p class="text-sm font-bold px-3 py-1 rounded-full inline-block"
                    [ngClass]="{
                      'bg-emerald-50 text-emerald-600': locationForm.value.statusCode === 'Active',
@@ -241,7 +241,7 @@
                 </p>
               </div>
               <div class="bg-slate-50/50 border border-slate-100 rounded-2xl p-4">
-                <p class="text-[9px] font-black text-black uppercase tracking-widest mb-1">Component</p>
+                <p >Component</p>
                 <p class="text-sm font-bold text-slate-900">{{ locationForm.value.component || '—' }}</p>
               </div>
             </div>

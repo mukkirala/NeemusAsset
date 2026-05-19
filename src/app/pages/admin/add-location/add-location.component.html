@@ -5,7 +5,7 @@
             class="p-6 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-white">
             <div>
                 <h2 class="text-xl font-bold text-slate-800">Location Management</h2>
-                <p class="text-sm text-slate-500">Register and manage organization locations and their codes</p>
+                
             </div>
             <!-- <button ejs-button cssClass="e-success" iconCss="e-icons e-add" (click)="addRecord()">
                 Add Location
@@ -21,11 +21,11 @@
                 [filterSettings]='filterSettings' (actionComplete)="actionComplete($event)" gridLines="Horizontal"
                 class="border-none">
                 <e-columns>
-                    <e-column field='LocationID' headerText='ID' width='100' isPrimaryKey='true' textAlign='Right' [visible]="false"></e-column>
+                    <e-column field='LocationID' headerText='ID' width='100' isPrimaryKey='true' textAlign='Left' [visible]='false'></e-column>
                     <e-column field='Location' headerText='Location Name' width='200' [validationRules]="{ required: true }"></e-column>
                     <e-column field='LocationCode' headerText='Location Code' width='150' [validationRules]="{ required: true }"></e-column>
                     <e-column field='Block' headerText='Block' width='180' [validationRules]="{ required: true }"></e-column>
-                    <e-column field='Status' headerText='Status' width='150' textAlign='Center'>
+                    <e-column field='Status' headerText='Status' width='150' textAlign='Left' [visible]='false'>
                         <ng-template #template let-data>
                             <span class="px-3 py-1 rounded-full text-xs font-bold"
                                 [ngClass]="{

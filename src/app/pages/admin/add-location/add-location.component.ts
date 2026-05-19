@@ -92,6 +92,9 @@ export class AddLocationComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.locationData = res;
+            if (this.grid) {
+          this.grid.refresh();
+        }
         },
         error: (err) => {
           console.error('Error fetching locations:', err);
