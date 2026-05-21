@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BASE_URL } from '../../../core/Constant/apiConstant';
@@ -22,7 +22,8 @@ import {
   GroupService,
   ColumnChooserService,
   ResizeService,
-  ReorderService
+  ReorderService,
+  SearchService
 } from '@syncfusion/ej2-angular-grids';
 
 @Component({
@@ -42,7 +43,8 @@ import {
     GroupService,
     ColumnChooserService,
     ResizeService,
-    ReorderService
+    ReorderService,
+    SearchService
   ],
   templateUrl: './view-employees.component.html',
   styleUrls: ['./view-employees.component.css']
@@ -50,18 +52,9 @@ import {
 export class ViewEmployeesComponent implements OnInit {
   @ViewChild('grid') public grid!: GridComponent;
   
-  public employees: any[] = [
-    { id: '150320', name: 'Ashok Kumar Sharma', designation: 'Process Operator', reporting: '100444', email: 'ashok.sharma@nrl.co.in', status: 'Active' },
-    { id: '100415', name: 'Gaurab Das', designation: 'SM(HR)', reporting: '100136', email: 'gaurab.das@nrl.co.in', status: 'Active' },
-    { id: '150395', name: 'Gauri Duarah', designation: 'Technician', reporting: '100402', email: 'gauri.duarah@nrl.co.in', status: 'Inactive' },
-    { id: '150303', name: 'Bhupen Chetia', designation: 'Process Operator', reporting: '100322', email: 'bhupen.chetia@nrl.co.in', status: 'Active' },
-    { id: '100676', name: 'Ashok Kumar Boruah', designation: 'CM(PROJECT)', reporting: '100103', email: 'ashok.boruah@nrl.co.in', status: 'Active' },
-    { id: '100358', name: 'Krishna Kt Dutta', designation: 'CM(OPNS)', reporting: '100235', email: 'krishna.dutta@nrl.co.in', status: 'Active' },
-    { id: '150313', name: 'Dinesh Das', designation: 'Process Operator', reporting: '100502', email: 'dinesh.das@nrl.co.in', status: 'Inactive' },
-    { id: '150316', name: 'Devajit Dev Sarmah', designation: 'Process Operator', reporting: '100328', email: 'devajit.sarmah@nrl.co.in', status: 'Active' },
-    { id: '150317', name: 'Deepak Kumar Boro', designation: 'Process Operator', reporting: '100168', email: 'deepak.boro@nrl.co.in', status: 'Active' },
-    { id: '100528', name: 'Tonmoy Phukan', designation: 'MGR(F&S)', reporting: '100389', email: 'tonmoy.phukan@nrl.co.in', status: 'Active' }
-  ];
+  public employees: any[] = [];
+  private apiUrl = BASE_URL;
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   public editSettings: EditSettingsModel = { 
     allowAdding: true,
@@ -83,20 +76,98 @@ export class ViewEmployeesComponent implements OnInit {
     { type: 'Cancel', buttonOption: { iconCss: 'e-icons e-cancel-icon', cssClass: 'e-flat' } }
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getEmployees();
+  }
+
+  getEmployees() {
+    this.http.get<any>(`${this.apiUrl}/CustodianDetails`, { headers: this.headers })
+      .subscribe({
+        next: (res) => {
+          console.log('Employees API Response:', res);
+          let data = [];
+          if (Array.isArray(res)) {
+            data = res;
+          } else if (res && Array.isArray(res.result)) {
+            data = res.result;
+          } else if (res && Array.isArray(res.data)) {
+            data = res.data;
+          } else if (res && res.$values && Array.isArray(res.$values)) {
+            data = res.$values;
+          }
+
+          this.employees = data.map((item: any) => ({
+            ...item,
+            CustodianID: item.CustodianID || item.custodianID || item.id || item.CustodianId,
+            CustodianName: item.CustodianName || item.custodianName || item.name || item.FullName,
+            CustodianDepartmentCode: item.CustodianDepartmentCode || item.departmentCode || item.DepartmentCode || item.deptCode,
+            Designation: item.Designation || item.designation,
+            ReportingStaffNo: item.ReportingStaffNo || item.reportingStaffNo,
+            Email: item.Email || item.email,
+            CustodianStatus: item.CustodianStatus || item.custodianStatus || item.status || 'Active'
+          }));
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error fetching employees:', err);
+        }
+      });
+  }
 
   actionComplete(args: any): void {
     if (args.requestType === 'save') {
       if (args.action === 'add') {
-        alert('Add action triggered');
+        this.insertEmployee(args.data);
       } else if (args.action === 'edit') {
-        alert('Edit action triggered');
+        this.updateEmployee(args.data);
       }
     } else if (args.requestType === 'delete') {
-      alert('Delete action triggered');
+      this.deleteEmployee(args.data[0]);
     }
+  }
+
+  insertEmployee(data: any) {
+    this.http.post(`${this.apiUrl}/InsertCustodian`, data, { headers: this.headers })
+      .subscribe({
+        next: (res) => {
+          alert('Employee Inserted Successfully');
+          this.getEmployees();
+        },
+        error: (err) => {
+          console.error('Insert Failed:', err);
+          alert('Insert Failed');
+        }
+      });
+  }
+
+  updateEmployee(data: any) {
+    this.http.put(`${this.apiUrl}/UpdateCustodian/${data.CustodianID}`, data, { headers: this.headers })
+      .subscribe({
+        next: (res) => {
+          alert('Updated Successfully');
+          this.getEmployees();
+        },
+        error: (err) => {
+          console.error('Update Failed:', err);
+          alert('Update Failed');
+        }
+      });
+  }
+
+  deleteEmployee(data: any) {
+    this.http.delete(`${this.apiUrl}/DeleteCustodian/${data.CustodianID}`, { headers: this.headers })
+      .subscribe({
+        next: (res) => {
+          alert('Deleted Successfully');
+          this.getEmployees();
+        },
+        error: (err) => {
+          console.error('Delete Failed:', err);
+          alert('Delete Failed');
+        }
+      });
   }
 
   addRecord() {
@@ -113,3 +184,4 @@ export class ViewEmployeesComponent implements OnInit {
     }
   }
 }
+

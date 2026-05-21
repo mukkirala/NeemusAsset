@@ -1,0 +1,109 @@
+:host {
+    display: block;
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+/* Toolbar overall styling */
+::ng-deep .e-grid .e-toolbar {
+    background: #f8fafc !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 8px !important;
+}
+
+/* Export Buttons Styling */
+::ng-deep .e-grid .e-toolbar .e-toolbar-item.e-excelexport .e-icons {
+    color: #059669 !important;
+}
+
+::ng-deep .e-grid .e-toolbar .e-toolbar-item.e-pdfexport .e-icons {
+    color: #dc2626 !important;
+}
+
+/* Grid header row */
+::ng-deep .e-grid .e-headercell {
+    background-color: #f8fafc !important;
+    color: #1e293b !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+}
+
+/* Grid rows */
+::ng-deep .e-grid .e-rowcell {
+    font-size: 13px !important;
+    color: #334155 !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+}
+
+/* Row hover */
+::ng-deep .e-grid .e-row:hover .e-rowcell {
+    background-color: #f8fafc !important;
+}
+
+/* Selected row */
+::ng-deep .e-grid .e-row.e-selectionbackground .e-rowcell {
+    background-color: #d1fae5 !important;
+    color: #065f46 !important;
+}
+
+/* Pager */
+::ng-deep .e-grid .e-gridpager {
+    background: #f8fafc !important;
+    border-top: 1px solid #e2e8f0 !important;
+}
+
+::ng-deep .e-grid .e-pager .e-currentitem {
+    background-color: #10b981 !important;
+    border-color: #10b981 !important;
+    color: #ffffff !important;
+}
+
+/* Filter bar */
+::ng-deep .e-grid .e-filterbar .e-filterbarcell input {
+    border-radius: 6px !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+}
+
+::ng-deep .e-grid .e-filterbar .e-filterbarcell input:focus {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12) !important;
+    outline: none !important;
+}
+
+/* Search input */
+::ng-deep .e-grid .e-toolbar .e-search-wrapper .e-search {
+    border-radius: 8px !important;
+    border: 1px solid #e2e8f0 !important;
+    background-color: #ffffff !important;
+    padding: 2px 8px !important;
+}
+
+/* Group drop area */
+::ng-deep .e-grid .e-groupdroparea {
+    background-color: #f1f5f9 !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    color: #64748b !important;
+    font-size: 13px !important;
+}
+
+/* Group caption row */
+::ng-deep .e-grid .e-groupcaption {
+    background-color: #f8fafc !important;
+    font-weight: 600 !important;
+    color: #1e293b !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+
+/* Quick filter select box */
+select:focus {
+    outline: none;
+}
+
+select option {
+    font-size: 14px;
+    color: #1e293b;
+    background-color: #ffffff;
+}

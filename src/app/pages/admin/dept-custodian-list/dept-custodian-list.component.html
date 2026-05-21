@@ -7,8 +7,8 @@
             <mat-form-field appearance="outline" class="w-80">
                 <mat-label>Select Department</mat-label>
                 <mat-select [(ngModel)]="selectedDept">
-                    <mat-option *ngFor="let dept of departments" [value]="dept.value">
-                        {{dept.viewValue}}
+                    <mat-option *ngFor="let dept of departments" [value]="dept.DepartmentCode || dept.departmentCode">
+                        {{dept.DepartmentName || dept.departmentName}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -41,18 +41,18 @@
                 [filterSettings]='filterSettings' (actionComplete)="actionComplete($event)" gridLines="Horizontal"
                 class="border-none">
                 <e-columns>
-                    <e-column field='id' headerText='Custodian ID' width='150' isPrimaryKey='true' textAlign='Right'></e-column>
-                    <e-column field='name' headerText='Custodian Name' width='250'></e-column>
-                    <e-column field='dept' headerText='Department' width='200'></e-column>
-                    <e-column field='designation' headerText='Designation' width='200'></e-column>
-                    <e-column field='status' headerText='Status' width='150' textAlign='Center'>
+                    <e-column field='CustodianID' headerText='Employee ID' width='150' isPrimaryKey='true' textAlign='Right' [validationRules]="{ required: true }"></e-column>
+                    <e-column field='CustodianName' headerText='Custodian Name' width='250' [validationRules]="{ required: true }"></e-column>
+                    <e-column field='CustodianDepartmentCode' headerText='Department' width='200' [validationRules]="{ required: true }"></e-column>
+                    <e-column field='Designation' headerText='Designation' width='200' [validationRules]="{ required: true }"></e-column>
+                    <e-column field='CustodianStatus' headerText='Status' width='150' textAlign='Center'>
                         <ng-template #template let-data>
                             <span class="px-3 py-1 rounded-full text-xs font-bold"
                                 [ngClass]="{
-                                    'bg-emerald-100 text-emerald-700': data.status === 'Active',
-                                    'bg-rose-100 text-rose-700': data.status !== 'Active'
+                                    'bg-emerald-100 text-emerald-700': data.CustodianStatus === 'Active',
+                                    'bg-rose-100 text-rose-700': data.CustodianStatus !== 'Active'
                                 }">
-                                {{ data.status }}
+                                {{ data.CustodianStatus || 'Active' }}
                             </span>
                         </ng-template>
                     </e-column>
@@ -62,3 +62,4 @@
         </div>
     </div>
 </div>
+

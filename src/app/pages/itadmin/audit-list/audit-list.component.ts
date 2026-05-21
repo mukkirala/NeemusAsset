@@ -1,67 +1,177 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DataTableComponent, TableColumn } from '../../../shared/components/data-table/data-table.component';
-import { CommonCardComponent } from '../../../shared/components/common-card/common-card.component';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
+import { BASE_URL } from '../../../core/Constant/apiConstant';
+import {
+  GridModule,
+  GridComponent,
+  ToolbarService,
+  PageService,
+  SortService,
+  FilterService,
+  PageSettingsModel,
+  FilterSettingsModel,
+  ExcelExportService,
+  PdfExportService,
+  GroupService,
+  ColumnChooserService,
+  ResizeService,
+  ReorderService
+} from '@syncfusion/ej2-angular-grids';
+
+const URL = BASE_URL;
+const headers = new HttpHeaders();
 
 @Component({
   selector: 'app-audit-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, DataTableComponent, CommonCardComponent],
+  imports: [CommonModule, FormsModule, GridModule],
+  providers: [
+    ToolbarService,
+    PageService,
+    SortService,
+    FilterService,
+    ExcelExportService,
+    PdfExportService,
+    GroupService,
+    ColumnChooserService,
+    ResizeService,
+    ReorderService
+  ],
   templateUrl: './audit-list.component.html',
-  styleUrls: []
+  styleUrls: ['./audit-list.component.css']
 })
 export class AuditListComponent implements OnInit {
-  @ViewChild('dataTable') public dataTable!: DataTableComponent;
-  
+  @ViewChild('grid') public grid!: GridComponent;
+
   filterType: string = 'All';
+  isLoading: boolean = false;
 
-  public auditColumns: TableColumn[] = [
-    { field: 'auditName', headerText: 'Audit Name', width: 150 },
-    { field: 'auditDescription', headerText: 'Audit Description', width: 200 },
-    { field: 'createdBy', headerText: 'CreatedBy', width: 120 },
-    { field: 'locationCode', headerText: 'Location Code', width: 130 },
-    { field: 'location', headerText: 'Location', width: 180 },
-    { field: 'auditDate', headerText: 'Audit Date', width: 130 },
-    { field: 'auditStatus', headerText: 'Audit Status', width: 120 }
-  ];
-
-  public rawData: any[] = [
-    { auditName: 'test audit', auditDescription: 'test added', createdBy: 'z_sohel', locationCode: 'NR72', location: 'NITROGEN PLANT', auditDate: '25-Apr-2023', auditStatus: 'Active' },
-    { auditName: 'Q2 Asset Verification', auditDescription: 'Quarterly verification of all IT assets', createdBy: 'Admin User', locationCode: 'HO01', location: 'Head Office', auditDate: '15-Apr-2026', auditStatus: 'In Progress' },
-    { auditName: 'Data Center Audit', auditDescription: 'Full audit of server room assets', createdBy: 'System Admin', locationCode: 'DC01', location: 'Data Center', auditDate: '20-Apr-2026', auditStatus: 'Pending' },
-    { auditName: 'Annual Review', auditDescription: 'Annual IT asset review', createdBy: 'Jane Doe', locationCode: 'NR11', location: 'IT DEPARTMENT', auditDate: '01-Jan-2026', auditStatus: 'Completed' },
-    { auditName: 'Software Audit', auditDescription: 'Verification of software licenses', createdBy: 'z_sohel', locationCode: 'NR72', location: 'NITROGEN PLANT', auditDate: '10-Feb-2026', auditStatus: 'Approved' }
-  ];
-
+  public locationData: any[] = [];
+  public rawData: any[] = [];
   public auditData: any[] = [];
 
+  public pageSettings: PageSettingsModel = { pageSize: 10, pageSizes: true };
+  public toolbar: string[] = ['Search', 'ExcelExport', 'PdfExport', 'ColumnChooser'];
+  public filterSettings: FilterSettingsModel = { type: 'Excel' };
+  public groupSettings: any = { showGroupedColumn: true };
+
+  constructor(private http: HttpClient) {}
+
   ngOnInit(): void {
-    this.auditData = [...this.rawData];
+    this.loadData();
   }
 
-  onFilterChange() {
-    if (this.filterType === 'All') {
-      this.auditData = [...this.rawData];
-    } else if (this.filterType === 'Current') {
-      this.auditData = this.rawData.filter(a => a.auditStatus === 'Active' || a.auditStatus === 'In Progress');
-    } else if (this.filterType === 'Pending') {
-      this.auditData = this.rawData.filter(a => a.auditStatus === 'Pending');
-    } else if (this.filterType === 'Completed') {
-      this.auditData = this.rawData.filter(a => a.auditStatus === 'Completed');
-    } else if (this.filterType === 'Approved') {
-      this.auditData = this.rawData.filter(a => a.auditStatus === 'Approved');
-    } else if (this.filterType === 'LocationWise') {
-      this.auditData = [...this.rawData];
-      setTimeout(() => {
-         this.dataTable.gridInstance.groupColumn('location');
-      }, 100);
-      return;
+  loadData(): void {
+    this.isLoading = true;
+
+    forkJoin({
+      audits: this.http.get<any[]>(URL + '/AuditDetails', { headers }),
+      locations: this.http.get<any[]>(URL + '/LocationDetails', { headers })
+    }).subscribe({
+      next: ({ audits, locations }) => {
+        this.locationData = locations || [];
+        this.rawData = this.mapAudits(audits || []);
+        this.isLoading = false;
+        setTimeout(() => this.applyFilter(), 0);
+      },
+      error: (err) => {
+        console.error('Error loading audit list:', err);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  private mapAudits(audits: any[]): any[] {
+    return audits.map(a => {
+      const loc = this.locationData.find(x => x.locationID === Number(a.locationID));
+      return {
+        ...a,
+        createdBy: (a.auditBy ?? a.createdBy ?? '').toString().trim(),
+        location: (loc?.location ?? a.location ?? '').trim(),
+        locationCode: (loc?.locationCode ?? a.locationCode ?? '').trim(),
+        auditDateDisplay: this.formatDate(a.auditDate)
+      };
+    });
+  }
+
+  formatDate(value: any): string {
+    if (!value) return '';
+    const d = new Date(value);
+    if (isNaN(d.getTime())) return value.toString();
+    return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  onFilterChange(): void {
+    this.applyFilter();
+  }
+
+  applyFilter(): void {
+    if (
+      this.filterType !== 'LocationWise' &&
+      this.grid?.groupSettings?.columns?.length
+    ) {
+      this.grid.clearGrouping();
     }
-    
-    // Clear grouping if not LocationWise
-    if (this.filterType !== 'LocationWise' && this.dataTable?.gridInstance && this.dataTable.gridInstance.groupSettings.columns?.length) {
-      this.dataTable.gridInstance.clearGrouping();
+
+    switch (this.filterType) {
+      case 'All':
+        this.auditData = [...this.rawData];
+        break;
+
+      case 'Current':
+        this.auditData = this.rawData.filter(a => {
+          const s = (a.auditStatus ?? '').trim().toLowerCase();
+          return s === 'active' || s === 'in progress' || s === 'open';
+        });
+        break;
+
+      case 'Pending':
+        this.auditData = this.rawData.filter(a =>
+          (a.auditStatus ?? '').trim().toLowerCase() === 'pending'
+        );
+        break;
+
+      case 'Completed':
+        this.auditData = this.rawData.filter(a => {
+          const auditStatus = (a.auditStatus ?? '').trim().toLowerCase();
+          const status = (a.status ?? '').trim().toLowerCase();
+          return auditStatus === 'completed' || status === 'completed';
+        });
+        break;
+
+      case 'Approved':
+        this.auditData = this.rawData.filter(a =>
+          (a.auditStatus ?? '').trim().toLowerCase() === 'approved'
+        );
+        break;
+
+      case 'LocationWise':
+        this.auditData = [...this.rawData];
+        setTimeout(() => {
+          if (this.grid) {
+            this.grid.groupColumn('location');
+          }
+        }, 100);
+        break;
+
+      default:
+        this.auditData = [...this.rawData];
+    }
+
+    if (this.grid) {
+      this.grid.dataSource = this.auditData;
+      this.grid.refresh();
+    }
+  }
+
+  toolbarClick(args: any): void {
+    if (args.item.id.includes('excelexport')) {
+      this.grid.excelExport();
+    } else if (args.item.id.includes('pdfexport')) {
+      this.grid.pdfExport();
     }
   }
 }

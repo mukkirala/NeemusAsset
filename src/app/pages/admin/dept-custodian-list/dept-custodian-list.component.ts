@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BASE_URL } from '../../../core/Constant/apiConstant';
 import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { 
   GridModule, 
@@ -25,7 +27,8 @@ import {
   GroupService,
   ColumnChooserService,
   ResizeService,
-  ReorderService
+  ReorderService,
+  SearchService
 } from '@syncfusion/ej2-angular-grids';
 
 @Component({
@@ -54,7 +57,8 @@ import {
     GroupService,
     ColumnChooserService,
     ResizeService,
-    ReorderService
+    ReorderService,
+    SearchService
   ],
   templateUrl: './dept-custodian-list.component.html',
   styleUrls: ['./dept-custodian-list.component.css']
@@ -63,23 +67,12 @@ export class DeptCustodianListComponent implements OnInit {
   @ViewChild('grid') public grid!: GridComponent;
   selectedDept: string = '';
   
-  departments = [
-    { value: 'HR', viewValue: 'Human Resources' },
-    { value: 'FIN', viewValue: 'Finance' },
-    { value: 'IT', viewValue: 'Information Technology' },
-    { value: 'OPS', viewValue: 'Operations' }
-  ];
-
-  allCustodians = [
-    { id: '150320', name: 'Ashok Kumar Sharma', dept: 'Operations', designation: 'Process Operator', status: 'Active' },
-    { id: '100415', name: 'Gaurab Das', dept: 'Human Resources', designation: 'SM(HR)', status: 'Active' },
-    { id: '150395', name: 'Gauri Duarah', dept: 'Information Technology', designation: 'Technician', status: 'Inactive' },
-    { id: '150303', name: 'Bhupen Chetia', dept: 'Operations', designation: 'Process Operator', status: 'Active' },
-    { id: '100676', name: 'Ashok Kumar Boruah', dept: 'Projects', designation: 'CM(PROJECT)', status: 'Active' },
-    { id: '100358', name: 'Krishna Kt Dutta', dept: 'Operations', designation: 'CM(OPNS)', status: 'Active' }
-  ];
-
-  filteredData: any[] = [];
+  public departments: any[] = [];
+  public allCustodians: any[] = [];
+  public filteredData: any[] = [];
+  
+  private apiUrl = BASE_URL;
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   public editSettings: EditSettingsModel = { 
     allowAdding: true,
@@ -101,30 +94,141 @@ export class DeptCustodianListComponent implements OnInit {
     { type: 'Cancel', buttonOption: { iconCss: 'e-icons e-cancel-icon', cssClass: 'e-flat' } }
   ];
 
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
+
   ngOnInit(): void {
-    this.filteredData = this.allCustodians;
+    this.getDepartments();
+    this.getCustodians();
+  }
+
+  getDepartments() {
+    this.http.get<any>(`${this.apiUrl}/DepartmentDetails`, { headers: this.headers })
+      .subscribe({
+        next: (res) => {
+          console.log('Departments API Response:', res);
+          // Handle various response formats
+          if (Array.isArray(res)) {
+            this.departments = res;
+          } else if (res && Array.isArray(res.result)) {
+            this.departments = res.result;
+          } else if (res && Array.isArray(res.data)) {
+            this.departments = res.data;
+          } else if (res && res.$values && Array.isArray(res.$values)) {
+            this.departments = res.$values;
+          }
+          
+          if (!this.departments || this.departments.length === 0) {
+            console.warn('Departments API returned empty or unrecognized format');
+          }
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error fetching departments:', err);
+          alert('Error fetching departments. Please check the backend API.');
+        }
+      });
+  }
+
+  getCustodians() {
+    this.http.get<any>(`${this.apiUrl}/CustodianDetails`, { headers: this.headers })
+      .subscribe({
+        next: (res) => {
+          console.log('Custodians API Response:', res);
+          let data = [];
+          if (Array.isArray(res)) {
+            data = res;
+          } else if (res && Array.isArray(res.result)) {
+            data = res.result;
+          } else if (res && Array.isArray(res.data)) {
+            data = res.data;
+          } else if (res && res.$values && Array.isArray(res.$values)) {
+            data = res.$values;
+          }
+
+          this.allCustodians = data.map((item: any) => ({
+            ...item,
+            CustodianID: item.CustodianID || item.custodianID || item.id || item.CustodianId,
+            CustodianName: item.CustodianName || item.custodianName || item.name || item.FullName,
+            CustodianDepartmentCode: item.CustodianDepartmentCode || item.departmentCode || item.DepartmentCode || item.deptCode,
+            Designation: item.Designation || item.designation,
+            CustodianStatus: item.CustodianStatus || item.custodianStatus || item.status || 'Active'
+          }));
+          this.filteredData = [...this.allCustodians];
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error fetching custodians:', err);
+          alert('Error fetching custodians. Please check the backend API.');
+        }
+      });
   }
 
   onSearch() {
+    console.log('Searching for department:', this.selectedDept);
     if (this.selectedDept) {
-      const deptObj = this.departments.find(d => d.value === this.selectedDept);
-      const deptName = deptObj ? deptObj.viewValue : '';
-      this.filteredData = this.allCustodians.filter(c => c.dept === deptName);
+      this.filteredData = this.allCustodians.filter((c: any) => {
+        const deptCode = c.CustodianDepartmentCode || c.departmentCode || c.DepartmentCode || c.deptCode;
+        // Use loose equality and handle potential string/number mismatch or case sensitivity
+        return String(deptCode).trim().toLowerCase() === String(this.selectedDept).trim().toLowerCase();
+      });
     } else {
       this.filteredData = this.allCustodians;
     }
+    console.log('Filtered data count:', this.filteredData.length);
   }
 
   actionComplete(args: any): void {
     if (args.requestType === 'save') {
       if (args.action === 'add') {
-        alert('Add action triggered');
+        this.insertCustodian(args.data);
       } else if (args.action === 'edit') {
-        alert('Edit action triggered');
+        this.updateCustodian(args.data);
       }
     } else if (args.requestType === 'delete') {
-      alert('Delete action triggered');
+      this.deleteCustodian(args.data[0]);
     }
+  }
+
+  insertCustodian(data: any) {
+    this.http.post(`${this.apiUrl}/InsertCustodian`, data, { headers: this.headers })
+      .subscribe({
+        next: (res) => {
+          alert('Custodian Inserted Successfully');
+          this.getCustodians();
+        },
+        error: (err) => {
+          console.error('Insert Failed:', err);
+          alert('Insert Failed');
+        }
+      });
+  }
+
+  updateCustodian(data: any) {
+    this.http.put(`${this.apiUrl}/UpdateCustodian/${data.CustodianID}`, data, { headers: this.headers })
+      .subscribe({
+        next: (res) => {
+          alert('Updated Successfully');
+          this.getCustodians();
+        },
+        error: (err) => {
+          console.error('Update Failed:', err);
+          alert('Update Failed');
+        }
+      });
+  }
+
+  deleteCustodian(data: any) {
+    this.http.delete(`${this.apiUrl}/DeleteCustodian/${data.CustodianID}`, { headers: this.headers })
+      .subscribe({
+        next: (res) => {
+          alert('Deleted Successfully');
+          this.getCustodians();
+        },
+        error: (err) => {
+          console.error('Delete Failed:', err);
+          alert('Delete Failed');
+        }
+      });
   }
 
   addRecord() {
@@ -141,3 +245,4 @@ export class DeptCustodianListComponent implements OnInit {
     }
   }
 }
+

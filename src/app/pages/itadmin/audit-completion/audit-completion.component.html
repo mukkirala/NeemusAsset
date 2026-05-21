@@ -1,71 +1,184 @@
-<div class="max-w-7xl mx-auto min-h-screen bg-slate-50 p-8 flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-  <header>
-    <h1 class="text-3xl font-black text-slate-900 tracking-tight">Audit Completion</h1>
-    <p class="text-sm text-slate-500 font-medium mt-1">Mark audits as complete and view completion history</p>
-  </header>
+<div class="p-6 space-y-6 relative">
 
-  <app-common-card 
-    title="Complete Audit Form" 
-    subtitle="Select an audit to mark it as complete"
-    icon="check_circle"
-    buttonLabel="Mark Audit Complete"
-    buttonVariant="green"
-    buttonIcon="task_alt"
-    (onAction)="onMarkComplete()"
-    class="w-full max-w-4xl mx-auto">
-    
-    <div class="flex flex-col gap-4 max-w-4xl mx-auto mb-8">
-      <!-- Success Message -->
-      <div *ngIf="showSuccess" class="text-rose-500 font-semibold mb-2">
-        Data Updated Successfully
-      </div>
+  <!-- Grid Card -->
+  <div class="bg-white/80 backdrop-blur-md rounded-xl shadow-xl border border-slate-200 overflow-hidden">
 
-      <div class="flex flex-col gap-2">
-        <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Select Audit</label>
-        <div class="flex gap-2">
-          <select [(ngModel)]="selectedAudit" class="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900">
-            <option value="">Select Audit</option>
-            <option value="EIL Audit">EIL Audit</option>
-            <option value="Admin audit">Admin audit</option>
-            <option value="August'20">August'20</option>
-          </select>
-          <app-button icon="search" [width]="'auto'" class="flex-shrink-0"></app-button>
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Select Date</label>
-        <input type="date" [(ngModel)]="selectedDate" class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900" />
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <label class="text-sm font-black text-slate-700 uppercase tracking-wider">Remarks</label>
-        <textarea [(ngModel)]="remarks" rows="3" class="px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-sky-100 focus:border-sky-500 outline-none transition-all font-medium text-slate-900 resize-none"></textarea>
-      </div>
-      
+    <!-- Grid Header -->
+    <div class="p-6 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+      <h2 class="text-xl font-bold text-slate-800">Audit Completion</h2>
+      <p class="text-sm text-slate-500">Mark active audits as completed and record final remarks</p>
     </div>
-  </app-common-card>
 
-    <app-common-card 
-      title="Completed Audits List" 
-      subtitle="History of all completed audits"
-      icon="history"
-      class="w-full max-w-5xl mx-auto">
+    <!-- Grid -->
+    <div class="p-4">
+      <ejs-grid
+        #grid
+        id="auditCompletionGrid"
+        [dataSource]="completions"
+        [allowPaging]="true"
+        [pageSettings]="pageSettings"
+        [editSettings]="editSettings"
+        [allowSorting]="true"
+        [allowFiltering]="true"
+        [allowExcelExport]="true"
+        [allowPdfExport]="true"
+        [allowGrouping]="true"
+        [groupSettings]="groupSettings"
+        [showColumnChooser]="true"
+        [allowResizing]="true"
+        [allowReordering]="true"
+        [filterSettings]="filterSettings"
+        [toolbar]="toolbar"
+        (toolbarClick)="toolbarClick($event)"
+        (actionBegin)="actionBegin($event)"
+        (actionComplete)="actionComplete($event)"
+        gridLines="Horizontal"
+        class="border-none">
 
-    <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm mt-4 w-full">
-      <ejs-grid [dataSource]="auditData" [allowPaging]="true" [allowGrouping]="true" [pageSettings]="{ pageSize: 10 }">
         <e-columns>
-          <e-column field="auditName" headerText="Audit Name" width="150"></e-column>
-          <e-column field="auditDescription" headerText="Audit Description" width="250"></e-column>
-          <e-column field="auditBy" headerText="AuditBy" width="120"></e-column>
-          <e-column field="locationCode" headerText="Location Code" width="130"></e-column>
-          <e-column field="location" headerText="Location" width="200"></e-column>
-          <e-column field="auditCreationDate" headerText="Audit CreationDate" width="160"></e-column>
-          <e-column field="completionDate" headerText="Completion Date" width="150"></e-column>
-          <e-column field="adminRemarks" headerText="Admin Remarks" width="150"></e-column>
-          <e-column field="auditStatus" headerText="Audit Status" width="120"></e-column>
+
+          <e-column
+            field="auditID"
+            headerText="Audit ID"
+            width="100"
+            [visible]="false"
+            isPrimaryKey="true">
+          </e-column>
+
+          <e-column
+            field="auditName"
+            headerText="Audit Name"
+            width="180"
+            textAlign="Left">
+          </e-column>
+
+          <e-column
+            field="auditDescription"
+            headerText="Description"
+            width="220"
+            textAlign="Left">
+          </e-column>
+
+          <e-column
+            field="locationID"
+            headerText="Location"
+            width="150"
+            textAlign="Left">
+            <ng-template #template let-data>
+              <span>{{ getLocationName(data.locationID) }}</span>
+            </ng-template>
+          </e-column>
+
+          <e-column
+            field="completionDate"
+            headerText="Completion Date"
+            width="160"
+            textAlign="Left"
+            type="date"
+            format="dd-MMM-yyyy">
+          </e-column>
+
+          <e-column
+            field="adminRemarks"
+            headerText="Remarks"
+            width="180"
+            textAlign="Left">
+          </e-column>
+
+          <e-column
+            field="auditStatus"
+            headerText="Audit Status"
+            width="140"
+            textAlign="Left">
+            <ng-template #template let-data>
+              <span
+                class="px-3 py-1 rounded-full text-xs font-bold"
+                [ngClass]="{
+                  'bg-emerald-100 text-emerald-700': data.auditStatus === 'Completed',
+                  'bg-amber-100   text-amber-700':   data.auditStatus === 'Open' || data.auditStatus === 'In Progress',
+                  'bg-slate-100   text-slate-600':   data.auditStatus !== 'Completed' &&
+                                                     data.auditStatus !== 'Open' &&
+                                                     data.auditStatus !== 'In Progress'
+                }">
+                {{ data.auditStatus }}
+              </span>
+            </ng-template>
+          </e-column>
+
+          <e-column
+            field="status"
+            headerText="Status"
+            width="120"
+            textAlign="Left">
+            <ng-template #template let-data>
+              <span
+                class="px-3 py-1 rounded-full text-xs font-bold"
+                [ngClass]="{
+                  'bg-blue-100 text-blue-700': data.status === 'Active',
+                  'bg-rose-100 text-rose-700': data.status === 'InActive'
+                }">
+                {{ data.status }}
+              </span>
+            </ng-template>
+          </e-column>
+
         </e-columns>
+
+        <!-- IMPORTANT: must be named exactly #editSettingsTemplate -->
+        <ng-template #editSettingsTemplate let-data>
+          <div class="p-2 space-y-5">
+
+            <!-- Select Audit -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-semibold text-slate-600 uppercase tracking-wide">
+                Select Audit <span class="text-rose-500">*</span>
+              </label>
+              <ejs-dropdownlist
+                id="formAudit"
+                [dataSource]="activeAuditData"
+                [fields]="auditFields"
+                [(ngModel)]="formAuditID"
+                (change)="onAuditChange($event)"
+                placeholder="Select an audit"
+                [showClearButton]="true">
+              </ejs-dropdownlist>
+            </div>
+
+            <!-- Completion Date -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-semibold text-slate-600 uppercase tracking-wide">
+                Completion Date <span class="text-rose-500">*</span>
+              </label>
+              <ejs-datepicker
+                id="formDate"
+                [(ngModel)]="formCompletionDate"
+                placeholder="Select date"
+                format="dd-MMM-yyyy"
+                [showClearButton]="true">
+              </ejs-datepicker>
+            </div>
+
+            <!-- Admin Remarks -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-xs font-semibold text-slate-600 uppercase tracking-wide">
+                Admin Remarks
+              </label>
+              <textarea
+                [(ngModel)]="formAdminRemarks"
+                rows="3"
+                placeholder="Enter remarks..."
+                class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm
+                       text-slate-700 bg-white shadow-sm focus:outline-none
+                       focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100
+                       transition-all resize-none">
+              </textarea>
+            </div>
+
+          </div>
+        </ng-template>
+
       </ejs-grid>
     </div>
-  </app-common-card>
+
+  </div>
 </div>
